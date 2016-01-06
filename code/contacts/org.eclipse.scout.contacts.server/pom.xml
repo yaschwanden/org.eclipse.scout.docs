@@ -41,8 +41,21 @@
       <artifactId>derby</artifactId>
     </dependency>
     <dependency>
-    	<groupId>org.eclipse.scout.rt</groupId>
-    	<artifactId>org.eclipse.scout.rt.server.jdbc</artifactId>
+      <groupId>org.eclipse.scout.rt</groupId>
+      <artifactId>org.eclipse.scout.rt.server.jdbc</artifactId>
     </dependency>
+
+    <!-- Test Dependencies -->
+    <dependency>
+      <groupId>org.eclipse.scout.rt</groupId>
+      <artifactId>org.eclipse.scout.rt.server.test</artifactId>
+    </dependency>
+
+     <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-all</artifactId>
+      <version>1.3</version>
+     </dependency>
+
   </dependencies>
 </project>
