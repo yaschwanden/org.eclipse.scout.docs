@@ -8,7 +8,7 @@
  * Contributors:
  *     BSI Business Systems Integration AG - initial API and implementation
  ******************************************************************************/
-package org.eclipse.scout.contacts.server;
+package org.eclipse.scout.contacts.server.test;
 
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
@@ -26,7 +26,7 @@ import org.eclipse.scout.rt.shared.services.common.text.ITextProviderService;
 import org.eclipse.scout.rt.shared.services.common.text.ScoutTextProviderService;
 import org.junit.Test;
 
-public class AllBeans extends AbstractCourseTest {
+public class AllBeansTest extends AbstractCourseTest {
 
   /**
    * TODO 4.1 All Beans: {@link BEANS#all(Class)} finds all instances of an interface (except replaced classes). <br>

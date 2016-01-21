@@ -8,7 +8,7 @@
  * Contributors:
  *     BSI Business Systems Integration AG - initial API and implementation
  ******************************************************************************/
-package org.eclipse.scout.contacts.server;
+package org.eclipse.scout.contacts.server.test;
 
 import static org.eclipse.scout.contacts.server.test.util.CollectionMatchers.hasEntryMatching;
 import static org.hamcrest.Matchers.hasSize;

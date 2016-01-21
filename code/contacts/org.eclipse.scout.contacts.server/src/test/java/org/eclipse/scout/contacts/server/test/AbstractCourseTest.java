@@ -1,4 +1,4 @@
-package org.eclipse.scout.contacts.server;
+package org.eclipse.scout.contacts.server.test;
 
 import org.eclipse.scout.rt.platform.config.PlatformConfigProperties.JandexRebuildProperty;
 import org.junit.AfterClass;
