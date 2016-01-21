@@ -19,7 +19,7 @@ import org.eclipse.scout.rt.platform.BEANS;
 import org.eclipse.scout.rt.platform.Replace;
 import org.junit.Test;
 
-public class ReplacingBeans {
+public class ReplacingBeans extends AbstractCourseTest {
 
   /**
    * TODO 3.1 Replacing Beans: A bean can be replaced, by using the annotation {@link Replace}. A bean annotated with

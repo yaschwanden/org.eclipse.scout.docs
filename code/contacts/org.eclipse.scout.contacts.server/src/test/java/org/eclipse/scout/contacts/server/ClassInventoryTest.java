@@ -26,7 +26,7 @@ import org.junit.Test;
 /**
  * Tests to demonstrate usage of {@link ClassInventory}
  */
-public class ClassInventoryTest {
+public class ClassInventoryTest extends AbstractCourseTest {
 
   /**
    * TODO 1.1 ClassInventory: Browsing the ClassInventory It is possible to find all subclasses with
@@ -41,12 +41,7 @@ public class ClassInventoryTest {
   }
 
   /**
-   * TODO 1.2 ClassInventory: Finding annotated classes Create a new class 'MyService' annotated with {@link Bean}.
-   * <p>
-   * Clean the workspace before running the test, because the jandex index is cached in
-   * projectName/target/classes/META-INF/jandex.idx. <br>
-   * Alternatively, use option -Djandex.rebuild=true
-   * </p>
+   * TODO 1.2 ClassInventory: Finding annotated classes Create a new class 'MyService' annotated with {@link Bean}. <br>
    * The ClassInventory only collects classes in projects with a resource called META-INF/scout.xml. <br>
    * See what happens, if you delete the scout.xml file.
    */

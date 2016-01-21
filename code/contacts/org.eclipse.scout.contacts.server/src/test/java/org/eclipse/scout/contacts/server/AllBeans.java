@@ -26,7 +26,7 @@ import org.eclipse.scout.rt.shared.services.common.text.ITextProviderService;
 import org.eclipse.scout.rt.shared.services.common.text.ScoutTextProviderService;
 import org.junit.Test;
 
-public class AllBeans {
+public class AllBeans extends AbstractCourseTest {
 
   /**
    * TODO 4.1 All Beans: {@link BEANS#all(Class)} finds all instances of an interface (except replaced classes). <br>

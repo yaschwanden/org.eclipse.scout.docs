@@ -41,7 +41,7 @@ public class PlatformListener implements IPlatformListener {
   @Override
   public void stateChanged(PlatformEvent event) {
     if (event.getState() == State.BeanManagerValid) {
-      autoCreateDatabase();
+//      autoCreateDatabase();
     }
   }
 

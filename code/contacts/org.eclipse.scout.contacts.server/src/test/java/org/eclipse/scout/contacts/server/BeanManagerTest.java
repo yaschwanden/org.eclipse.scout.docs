@@ -31,7 +31,7 @@ import org.junit.Test;
  * Finding a single bean <br>
  * {@link BEAN} , {@link ApplicationScoped}, {@link BEANS#get(Class)}
  */
-public class BeanManagerTest {
+public class BeanManagerTest extends AbstractCourseTest {
 
   /**
    * TODO 2.1 BEANS: The {@link IBeanManager} allows register classes, generating instances of these classes and
@@ -39,7 +39,7 @@ public class BeanManagerTest {
    * <p>
    * By default, all classes annotated with {@link Bean} are automatically registered.
    * </p>
-   * Make sure the OrganizationService is found by the bean manager
+   * Make sure the AddressService is found by the bean manager by adding @Bean to the {@link IAddressService}
    */
   @Test
   public void getBean() {
