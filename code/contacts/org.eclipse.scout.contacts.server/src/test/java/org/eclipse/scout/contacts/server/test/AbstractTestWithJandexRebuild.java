@@ -5,11 +5,11 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 /**
- * <h3>{@link AbstractCourseTest}</h3>
+ * <h3>{@link AbstractTestWithJandexRebuild}</h3>
  *
  * @author mvi
  */
-public abstract class AbstractCourseTest {
+public abstract class AbstractTestWithJandexRebuild {
 
   private static final String JANDEX_PROPERTY_NAME = new JandexRebuildProperty().getKey();
   private static String m_originalPropertyValue;

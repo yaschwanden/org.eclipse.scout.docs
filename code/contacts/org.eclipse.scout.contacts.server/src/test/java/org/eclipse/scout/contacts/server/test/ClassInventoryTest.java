@@ -26,7 +26,7 @@ import org.junit.Test;
 /**
  * Tests to demonstrate usage of {@link ClassInventory}
  */
-public class ClassInventoryTest extends AbstractCourseTest {
+public class ClassInventoryTest extends AbstractTestWithJandexRebuild {
 
   /**
    * TODO 1.1 ClassInventory: Browsing the ClassInventory It is possible to find all subclasses with

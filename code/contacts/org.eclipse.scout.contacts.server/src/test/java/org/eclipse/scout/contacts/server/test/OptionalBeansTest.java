@@ -22,7 +22,7 @@ import org.eclipse.scout.rt.platform.BEANS;
 import org.eclipse.scout.rt.platform.Order;
 import org.junit.Test;
 
-public class OptionalBeansTest extends AbstractCourseTest {
+public class OptionalBeansTest extends AbstractTestWithJandexRebuild {
 
   /**
    * TODO 5.1 Optional Beans: It is possible to find beans that are optionally available or not with
