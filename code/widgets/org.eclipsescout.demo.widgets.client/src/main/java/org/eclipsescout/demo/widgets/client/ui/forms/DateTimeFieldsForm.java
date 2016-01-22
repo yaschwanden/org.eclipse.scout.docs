@@ -380,6 +380,7 @@ public class DateTimeFieldsForm extends AbstractForm implements IPageForm {
           protected String getConfiguredTooltipText() {
             return TEXTS.get("DateFieldKeyboardControl");
           }
+
         }
 
         @Order(30)
@@ -647,6 +648,11 @@ public class DateTimeFieldsForm extends AbstractForm implements IPageForm {
       @Override
       protected String getConfiguredLabel() {
         return TEXTS.get("Configure");
+      }
+
+      @Override
+      protected String getConfiguredCssClass() {
+        return "configuration-group-box";
       }
 
       @Order(10)

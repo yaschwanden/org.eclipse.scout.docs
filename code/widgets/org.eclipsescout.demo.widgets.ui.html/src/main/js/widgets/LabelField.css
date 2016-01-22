@@ -1,0 +1,10 @@
+.styled-text {
+  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  font-size: large;
+  padding: 10px;
+}
+
+.styled-text > span:last-of-type {
+  float: right;
+  color: white;
+}

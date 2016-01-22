@@ -8,3 +8,6 @@
  *     BSI Business Systems Integration AG - initial API and implementation
  ******************************************************************************/
 //@include("widgets/ExampleBeanField.css");
+//@include("widgets/LabelField.css");
+//@include("widgets/GroupBox.css");
+//@include("widgets/XyField.css");
