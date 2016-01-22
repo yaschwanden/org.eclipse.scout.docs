@@ -26,11 +26,8 @@ import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractLinkButton;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
 import org.eclipse.scout.rt.client.ui.form.fields.htmlfield.AbstractHtmlField;
 import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
-import org.eclipse.scout.rt.client.ui.messagebox.MessageBoxes;
 import org.eclipse.scout.rt.platform.Order;
 import org.eclipse.scout.rt.platform.exception.ProcessingException;
-import org.eclipse.scout.rt.platform.html.HTML;
-import org.eclipse.scout.rt.platform.html.IHtmlContent;
 import org.eclipse.scout.rt.platform.resource.BinaryResource;
 import org.eclipse.scout.rt.platform.util.IOUtility;
 import org.eclipse.scout.rt.shared.TEXTS;
@@ -201,12 +198,6 @@ public class HtmlFieldForm extends AbstractForm implements IAdvancedExampleForm 
         return true;
       }
 
-      @Override
-      protected void execAppLinkAction(String ref) {
-        if ("2".equals(ref)) {
-          MessageBoxes.createOk().withBody("Second link was clicked").show();
-        }
-      }
     }
 
     @Order(20)
@@ -222,12 +213,7 @@ public class HtmlFieldForm extends AbstractForm implements IAdvancedExampleForm 
         @Override
         protected void execClickAction() {
           getHTMLField().setValue(null);
-          IHtmlContent html = HTML.div(
-              HTML.appLink("1", "First Link"),
-              HTML.br(),
-              HTML.appLink("2", "Second Link"));
-
-          getHTMLField().setValue(html.toEncodedHtml());
+          //TODO HtmlUi 3.3 implement
         }
       }
 

@@ -19,7 +19,6 @@ import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
 import org.eclipse.scout.rt.client.ui.messagebox.MessageBoxes;
 import org.eclipse.scout.rt.platform.Order;
 import org.eclipse.scout.rt.platform.classid.ClassId;
-import org.eclipse.scout.rt.platform.html.AppLink;
 import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipsescout.demo.widgets.client.ui.desktop.outlines.IAdvancedExampleForm;
 import org.eclipsescout.demo.widgets.client.ui.forms.BeanFieldForm.MainBox.CloseButton;
@@ -83,11 +82,7 @@ public class BeanFieldForm extends AbstractForm implements IAdvancedExampleForm 
 
         @Override
         protected void execInitField() {
-          ExampleBean bean = new ExampleBean();
-          bean.setHeader(TEXTS.get("ExampleBeanFieldHeader"));
-          bean.setDescription(TEXTS.get("ExampleBeanFieldDescription"));
-          bean.setAppLink(new AppLink("exampleRef", TEXTS.get("ExampleBeanFieldAppLink")));
-          setValue(bean);
+          // TODO HtmlUi 3.4 implement
         }
 
         @Override

@@ -638,6 +638,7 @@ public class DateTimeFieldsForm extends AbstractForm implements IPageForm {
     }
 
     @Order(20)
+    //TODO HtmlUi 3.1 implement
     public class ConfigurationBox extends AbstractGroupBox {
 
       @Override
@@ -648,11 +649,6 @@ public class DateTimeFieldsForm extends AbstractForm implements IPageForm {
       @Override
       protected String getConfiguredLabel() {
         return TEXTS.get("Configure");
-      }
-
-      @Override
-      protected String getConfiguredCssClass() {
-        return "configuration-group-box";
       }
 
       @Order(10)

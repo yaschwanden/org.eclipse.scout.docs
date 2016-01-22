@@ -8,4 +8,3 @@
  *     BSI Business Systems Integration AG - initial API and implementation
  ******************************************************************************/
 __include("widgets/ExampleBeanField.js");
-__include("widgets/XyField.js");
