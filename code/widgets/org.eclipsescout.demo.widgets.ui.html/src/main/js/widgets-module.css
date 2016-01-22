@@ -7,6 +7,7 @@
  * Contributors:
  *     BSI Business Systems Integration AG - initial API and implementation
  ******************************************************************************/
+//@include("widgets/main.css");
 //@include("widgets/ExampleBeanField.css");
 //@include("widgets/LabelField.css");
 //@include("widgets/GroupBox.css");
