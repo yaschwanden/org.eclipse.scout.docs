@@ -31,7 +31,7 @@ import org.junit.Test;
  * Finding a single bean <br>
  * {@link BEAN} , {@link ApplicationScoped}, {@link BEANS#get(Class)}
  */
-public class BeanManagerTest extends AbstractTestWithJandexRebuild {
+public class BeanManagerTest {
 
   /**
    * TODO 2.1 BEANS: The {@link IBeanManager} allows register classes, generating instances of these classes and

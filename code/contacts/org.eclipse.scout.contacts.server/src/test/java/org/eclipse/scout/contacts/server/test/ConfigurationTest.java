@@ -7,7 +7,7 @@ import org.eclipse.scout.rt.platform.config.AbstractPositiveLongConfigProperty;
 import org.eclipse.scout.rt.platform.config.CONFIG;
 import org.junit.Test;
 
-public class ConfigurationTest extends AbstractTestWithJandexRebuild {
+public class ConfigurationTest {
 
   /**
    * TODO 6.1 Configuration: Ensure the class {@link MaxLinesConfigProperty} uses the value of the config.properties
