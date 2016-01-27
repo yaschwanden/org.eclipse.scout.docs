@@ -32,5 +32,14 @@
       <groupId>org.eclipse.scout.contacts</groupId>
       <artifactId>org.eclipse.scout.contacts.shared.module.events</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.eclipse.scout.rt</groupId>
+      <artifactId>org.eclipse.scout.rt.client.test</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 </project>
