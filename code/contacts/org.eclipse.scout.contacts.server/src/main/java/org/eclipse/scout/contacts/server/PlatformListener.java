@@ -11,6 +11,7 @@
 package org.eclipse.scout.contacts.server;
 
 import org.eclipse.scout.contacts.server.sql.DBSetupService;
+import org.eclipse.scout.contacts.server.timer.TimerService;
 import org.eclipse.scout.rt.platform.BEANS;
 import org.eclipse.scout.rt.platform.IPlatform.State;
 import org.eclipse.scout.rt.platform.IPlatformListener;
@@ -24,6 +25,7 @@ public class PlatformListener implements IPlatformListener {
   public void stateChanged(PlatformEvent event) {
     if (event.getState() == State.BeanManagerValid) {
       BEANS.get(DBSetupService.class).autoCreateDatabase();
+      BEANS.get(TimerService.class).start();
     }
   }
 
