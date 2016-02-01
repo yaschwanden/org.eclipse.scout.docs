@@ -12,8 +12,10 @@ package org.eclipse.scout.contacts.server;
 
 import javax.security.auth.Subject;
 
+import org.eclipse.scout.rt.platform.Replace;
 import org.eclipse.scout.rt.platform.config.AbstractBooleanConfigProperty;
 import org.eclipse.scout.rt.platform.config.AbstractSubjectConfigProperty;
+import org.eclipse.scout.rt.server.jaxws.JaxWsConfigProperties.JaxWsImplementorProperty;
 
 public final class ConfigProperties {
 
@@ -59,4 +61,12 @@ public final class ConfigProperties {
     }
   }
 
+  @Replace
+  public static class JaxWsImplementor extends JaxWsImplementorProperty {
+
+    @Override
+    protected String getDefaultValue() {
+      return "org.eclipse.scout.rt.server.jaxws.implementor.JaxWsRISpecifics";
+    }
+  }
 }
