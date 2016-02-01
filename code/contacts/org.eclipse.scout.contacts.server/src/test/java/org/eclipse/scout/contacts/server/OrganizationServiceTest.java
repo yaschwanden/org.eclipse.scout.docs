@@ -26,6 +26,7 @@ public class OrganizationServiceTest {
 
   @AfterClass
   public static void destroyDBConnections() {
+    BEANS.get(DerbySqlService.class).dropDB();
     BEANS.get(DerbySqlService.class).destroySqlConnectionPool();
   }
 
