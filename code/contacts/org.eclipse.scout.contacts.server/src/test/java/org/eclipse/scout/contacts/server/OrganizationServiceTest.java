@@ -16,7 +16,7 @@ import org.junit.Test;
  * Tests for
  * <h3>{@link OrganizationService}</h3>
  */
-//TODO 7.1 Testing: Add testing annotations
+//TODO Platform 7.1 Testing: Add testing annotations
 public class OrganizationServiceTest {
 
   @BeforeClass
@@ -40,6 +40,6 @@ public class OrganizationServiceTest {
     assertNotNull(created.getOrganizationId());
   }
 
-  //TODO 7.2 Testing: Add Tests for other OrganizationService methods
+  //TODO Platform 7.2 Testing: Add Tests for other OrganizationService methods
 
 }

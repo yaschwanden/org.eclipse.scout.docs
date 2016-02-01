@@ -29,7 +29,8 @@ import org.junit.Test;
 public class AllBeansTest {
 
   /**
-   * TODO 4.1 All Beans: {@link BEANS#all(Class)} finds all instances of an interface (except replaced classes). <br>
+   * TODO Platform 4.1 All Beans: {@link BEANS#all(Class)} finds all instances of an interface (except replaced
+   * classes). <br>
    * This is useful for resource providers such as image and text services. <br>
    * Add a new TextProviderservice.
    */
@@ -41,7 +42,7 @@ public class AllBeansTest {
   }
 
   /**
-   * TODO 4.2 All Beans: Replaced instances are not found with BEANS.all Replace TextProviderService with
+   * TODO Platform 4.2 All Beans: Replaced instances are not found with BEANS.all Replace TextProviderService with
    * TextProviderServiceReplacement.
    */
   @Test
@@ -53,7 +54,7 @@ public class AllBeansTest {
   }
 
   /**
-   * TODO 4.3 All Beans: Beans are ordered with {@link Order} annotation.
+   * TODO Platform 4.3 All Beans: Beans are ordered with {@link Order} annotation.
    */
   @Test
   public void orderdBeans() {

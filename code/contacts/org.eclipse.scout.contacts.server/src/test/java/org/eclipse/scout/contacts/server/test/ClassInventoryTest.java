@@ -29,7 +29,7 @@ import org.junit.Test;
 public class ClassInventoryTest {
 
   /**
-   * TODO 1.1 ClassInventory: Browsing the ClassInventory It is possible to find all subclasses with
+   * TODO Platform 1.1 ClassInventory: Browsing the ClassInventory It is possible to find all subclasses with
    * {@link IClassInventory#getAllKnownSubClasses(Class)}
    */
   @Test
@@ -41,7 +41,8 @@ public class ClassInventoryTest {
   }
 
   /**
-   * TODO 1.2 ClassInventory: Finding annotated classes Create a new class 'MyService' annotated with {@link Bean}. <br>
+   * TODO Platform 1.2 ClassInventory: Finding annotated classes Create a new class 'MyService' annotated with
+   * {@link Bean}. <br>
    * The ClassInventory only collects classes in projects with a resource called META-INF/scout.xml. <br>
    * See what happens, if you delete the scout.xml file.
    */

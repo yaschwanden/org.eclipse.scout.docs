@@ -10,8 +10,8 @@ import org.junit.Test;
 public class ConfigurationTest {
 
   /**
-   * TODO 6.1 Configuration: Ensure the class {@link MaxLinesConfigProperty} uses the value of the config.properties
-   * file and correct the value in the properties file to fulfill the validation constraints.
+   * TODO Platform 6.1 Configuration: Ensure the class {@link MaxLinesConfigProperty} uses the value of the
+   * config.properties file and correct the value in the properties file to fulfill the validation constraints.
    */
   @Test
   public void testConfig() {

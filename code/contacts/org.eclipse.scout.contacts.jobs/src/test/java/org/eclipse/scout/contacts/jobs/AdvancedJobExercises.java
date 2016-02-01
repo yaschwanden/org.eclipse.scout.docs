@@ -38,7 +38,7 @@ public class AdvancedJobExercises {
    */
   @Test
   public void exercise_1() {
-    // TODO: Schedule a repetitive job which runs 60 times at every minute
+    // TODO Jobs: Schedule a repetitive job which runs 60 times at every minute
   }
 
   /**
@@ -46,7 +46,7 @@ public class AdvancedJobExercises {
    */
   @Test
   public void exercise_2() {
-    // TODO: Schedule a repetitive job at a fixed delay.
+    // TODO Jobs: Schedule a repetitive job at a fixed delay.
   }
 
   /**
@@ -55,7 +55,7 @@ public class AdvancedJobExercises {
    */
   @Test
   public void exercise_3() {
-    // TODO: Schedule a repetitive job which runs 60 times, but waits 1 minute between the termination of the previous and the commencement of the next execution
+    // TODO Jobs: Schedule a repetitive job which runs 60 times, but waits 1 minute between the termination of the previous and the commencement of the next execution
   }
 
   /**
@@ -65,7 +65,7 @@ public class AdvancedJobExercises {
    */
   @Test
   public void exercise_4() {
-    // TODO: Schedule a job which runs at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday.
+    // TODO Jobs: Schedule a job which runs at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday.
   }
 
   /**
@@ -73,7 +73,7 @@ public class AdvancedJobExercises {
    */
   @Test
   public void exercise_5() {
-    // TODO: Change this snippet so that maximal 5 jobs are running at the same time.
+    // TODO Jobs: Change this snippet so that maximal 5 jobs are running at the same time.
 
     for (int i = 0; i < 100; i++) {
       Jobs.schedule(new IRunnable() {
@@ -93,7 +93,7 @@ public class AdvancedJobExercises {
    */
   @Test
   public void exercise_6() {
-    // TODO: Cancel all jobs of the current session
+    // TODO Jobs: Cancel all jobs of the current session
   }
 
   /**
@@ -117,7 +117,7 @@ public class AdvancedJobExercises {
           }
         }, ModelJobs.newInput(ClientRunContexts.copyCurrent()));
 
-        // TODO: Wait by releasing the current model job permit.
+        // TODO Jobs: Wait by releasing the current model job permit.
         // Hint: use a blocking condition.
 
         future.awaitDone();

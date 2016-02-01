@@ -11,12 +11,13 @@ import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
 import org.eclipse.scout.rt.platform.Order;
 
 /**
- * TODO CN 1.2: Create a client notification handler that updates the message field, whenever a notification arrives.
+ * TODO ClientNotification 1.2: Create a client notification handler that updates the message field, whenever a
+ * notification arrives.
  * <ul>
  * <li>If the form is already open, it should find and update it</li>
  * <li>If not, it should open it</li>
  * </ul>
- * TODO CN 1.3: As always, make sure that the new notification handler is unit tested!
+ * TODO ClientNotification 1.3: As always, make sure that the new notification handler is unit tested!
  */
 public class TimerDemoForm extends AbstractForm {
 

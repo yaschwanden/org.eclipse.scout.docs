@@ -34,8 +34,8 @@ import org.junit.Test;
 public class BeanManagerTest {
 
   /**
-   * TODO 2.1 BEANS: The {@link IBeanManager} allows register classes, generating instances of these classes and
-   * querying the classes and instances. This is useful for resolving dependencies.
+   * TODO Platform 2.1 BEANS: The {@link IBeanManager} allows register classes, generating instances of these classes
+   * and querying the classes and instances. This is useful for resolving dependencies.
    * <p>
    * By default, all classes annotated with {@link Bean} are automatically registered.
    * </p>
@@ -48,8 +48,8 @@ public class BeanManagerTest {
   }
 
   /**
-   * TODO 2.2 BEANS: By default, a new instance is created every time {@link BEANS#get(Class)} is called. You can create
-   * a singleton by using the annotation {@link ApplicationScoped}
+   * TODO Platform 2.2 BEANS: By default, a new instance is created every time {@link BEANS#get(Class)} is called. You
+   * can create a singleton by using the annotation {@link ApplicationScoped}
    */
   @Test
   public void getBeanSingleton() {
@@ -59,7 +59,7 @@ public class BeanManagerTest {
   }
 
   /**
-   * TODO 2.3 BEANS: Bean lookup also works with an interface, which is usually the preferred way.
+   * TODO Platform 2.3 BEANS: Bean lookup also works with an interface, which is usually the preferred way.
    */
   @Test
   public void lookupByInterface() {
@@ -68,7 +68,7 @@ public class BeanManagerTest {
   }
 
   /**
-   * TODO 2.4 BEANS: If there are multiple instances available in a hierarchy, querying a specific class with
+   * TODO Platform 2.4 BEANS: If there are multiple instances available in a hierarchy, querying a specific class with
    * {@link BEANS#get(Class)} always returns an instance of that class.
    */
   @Test
@@ -78,7 +78,7 @@ public class BeanManagerTest {
   }
 
   /**
-   * TODO 2.5 BEANS: Querying by interface with {@link BEANS#get(Class)} is supposed to always find exactly one
+   * TODO Platform 2.5 BEANS: Querying by interface with {@link BEANS#get(Class)} is supposed to always find exactly one
    * instance. Otherwise, an exception will be thrown. Fix the tests below!
    */
   @Test(expected = AssertionException.class)

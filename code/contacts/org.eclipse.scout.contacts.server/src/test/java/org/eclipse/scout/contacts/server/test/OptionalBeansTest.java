@@ -25,7 +25,7 @@ import org.junit.Test;
 public class OptionalBeansTest {
 
   /**
-   * TODO 5.1 Optional Beans: It is possible to find beans that are optionally available or not with
+   * TODO Platform 5.1 Optional Beans: It is possible to find beans that are optionally available or not with
    * {@link BEANS#opt(Class)}.
    */
   @Test
@@ -34,7 +34,7 @@ public class OptionalBeansTest {
   }
 
   /**
-   * TODO 5.2 Optional ordered beans: If there are multiple beans that are not ordered (or replaced),
+   * TODO Platform 5.2 Optional ordered beans: If there are multiple beans that are not ordered (or replaced),
    * {@link BEANS#opt(Class)} fails. If the services are ordered with {@link Order}, {@link BEANS#opt(Class)} returns
    * the one with the highest order.
    */

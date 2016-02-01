@@ -14,7 +14,7 @@ public class TimerService {
 
   public void start() {
     Jobs.schedule(() -> {
-      //TODO CN 1.1: publish the current date as a client notification for all sessions.
+      //TODO ClientNotification 1.1: publish the current date as a client notification for all sessions.
     }, Jobs.newInput()
         .withName("Timer")
         .withExecutionTrigger(

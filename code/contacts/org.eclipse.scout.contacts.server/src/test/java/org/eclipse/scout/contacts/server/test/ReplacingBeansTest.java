@@ -22,8 +22,8 @@ import org.junit.Test;
 public class ReplacingBeansTest {
 
   /**
-   * TODO 3.1 Replacing Beans: A bean can be replaced, by using the annotation {@link Replace}. A bean annotated with
-   * replace replaces its superclass.<br>
+   * TODO Platform 3.1 Replacing Beans: A bean can be replaced, by using the annotation {@link Replace}. A bean
+   * annotated with replace replaces its superclass.<br>
    * Fix the test without changing {@link EmailService} or {@link IEmailService}
    */
   @Test
