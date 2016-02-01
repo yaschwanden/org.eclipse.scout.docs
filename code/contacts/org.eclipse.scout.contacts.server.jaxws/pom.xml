@@ -23,6 +23,10 @@
 
   <artifactId>org.eclipse.scout.contacts.server.jaxws</artifactId>
 
+  <properties>
+    <jaxws.wsdl.file>PingWebService.wsdl</jaxws.wsdl.file>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.eclipse.scout.rt</groupId>

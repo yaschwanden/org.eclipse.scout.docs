@@ -1,0 +1,10 @@
+<jws:endpoints xmlns:jws="http://java.sun.com/xml/ns/jax-ws/ri/runtime" version="2.0">
+
+  <!-- PingWebService -->
+  <jws:endpoint
+      name="PingService"
+      implementation="org.eclipse.scout.contacts.server.jaxws.PingWebServicePortTypeEntryPoint"
+      service="{http://scout.eclipse.org/docs/ws/PingWebService/}PingWebService"
+      port="{http://scout.eclipse.org/docs/ws/PingWebService/}PingWebServiceSOAP"
+      url-pattern="/jaxws/PingWebService"/>
+</jws:endpoints>

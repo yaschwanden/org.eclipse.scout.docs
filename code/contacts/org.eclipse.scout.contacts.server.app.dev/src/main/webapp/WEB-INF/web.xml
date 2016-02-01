@@ -55,4 +55,24 @@
     <session-timeout>60</session-timeout>
   </session-config>
 
+  <!-- JAX-WS METRO -->
+  <context-param>
+    <param-name>com.sun.xml.ws.server.http.publishStatusPage</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>com.sun.xml.ws.server.http.publishWSDL</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <listener>
+    <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+  </listener>
+  <servlet>
+    <servlet-name>jaxws</servlet-name>
+    <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>jaxws</servlet-name>
+    <url-pattern>/jaxws/*</url-pattern>
+  </servlet-mapping>
 </web-app>
