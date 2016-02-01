@@ -16,6 +16,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Set;
 
+import org.eclipse.scout.contacts.server.organization.OrganizationService;
 import org.eclipse.scout.contacts.shared.organization.IOrganizationService;
 import org.eclipse.scout.rt.platform.Bean;
 import org.eclipse.scout.rt.platform.inventory.ClassInventory;
@@ -36,7 +37,7 @@ public class ClassInventoryTest {
   public void testFindKnownSubclasses() {
     Set<IClassInfo> coServices = ClassInventory.get().getAllKnownSubClasses(IOrganizationService.class);
     assertThat(coServices, hasSize(1));
-    Class<?> expectedClass = null; //fix: specify the expected class
+    Class<?> expectedClass = OrganizationService.class; //fix: specify the expected class
     assertThat(coServices, hasEntryMatching(e -> e.resolveClass().equals(expectedClass)));
   }
 
