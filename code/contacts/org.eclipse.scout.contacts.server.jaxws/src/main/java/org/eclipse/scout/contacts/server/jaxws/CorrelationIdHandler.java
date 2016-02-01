@@ -20,7 +20,7 @@ public class CorrelationIdHandler implements SOAPHandler<SOAPMessageContext> {
   @Override
   public boolean handleMessage(final SOAPMessageContext context) {
     final String cid = UUID.randomUUID().toString();
-    // TODO: Add correlation ID to the context to be accessible by subsequent handlers, and the port type.
+    // TODO JaxWs: Add correlation ID to the context to be accessible by subsequent handlers, and the port type.
     return true;
   }
 
