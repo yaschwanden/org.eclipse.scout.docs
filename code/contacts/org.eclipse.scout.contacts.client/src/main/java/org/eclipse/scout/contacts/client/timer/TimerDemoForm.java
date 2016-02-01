@@ -16,6 +16,7 @@ import org.eclipse.scout.rt.platform.Order;
  * <li>If the form is already open, it should find and update it</li>
  * <li>If not, it should open it</li>
  * </ul>
+ * TODO CN 1.3: As always, make sure that the new notification handler is unit tested!
  */
 public class TimerDemoForm extends AbstractForm {
 
