@@ -17,6 +17,7 @@ import org.eclipse.scout.contacts.client.common.SearchOutline;
 import org.eclipse.scout.contacts.client.contact.ContactOutline;
 import org.eclipse.scout.contacts.client.organization.OrganizationForm;
 import org.eclipse.scout.contacts.client.person.PersonForm;
+import org.eclipse.scout.contacts.shared.ws.IWebServiceInvoker;
 import org.eclipse.scout.rt.client.ui.action.keystroke.AbstractKeyStroke;
 import org.eclipse.scout.rt.client.ui.action.keystroke.IKeyStroke;
 import org.eclipse.scout.rt.client.ui.action.menu.AbstractMenu;
@@ -26,6 +27,8 @@ import org.eclipse.scout.rt.client.ui.desktop.outline.AbstractFormToolButton;
 import org.eclipse.scout.rt.client.ui.desktop.outline.AbstractOutlineViewButton;
 import org.eclipse.scout.rt.client.ui.desktop.outline.IOutline;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.IPage;
+import org.eclipse.scout.rt.client.ui.messagebox.MessageBoxes;
+import org.eclipse.scout.rt.platform.BEANS;
 import org.eclipse.scout.rt.platform.Order;
 import org.eclipse.scout.rt.platform.config.CONFIG;
 import org.eclipse.scout.rt.platform.config.PlatformConfigProperties.ApplicationNameProperty;
@@ -167,6 +170,27 @@ public class Desktop extends AbstractDesktop {
       @Override
       protected void execAction() {
         new OrganizationForm().startNew();
+      }
+    }
+
+    @Order(10_000)
+    public class InvokeWebServiceMenu extends AbstractMenu {
+
+      @Override
+      protected Set<? extends IMenuType> getConfiguredMenuTypes() {
+        return CollectionUtility.<IMenuType> hashSet();
+      }
+
+      @Override
+      protected String getConfiguredText() {
+        return "Invoke Webservice";
+      }
+
+      @Override
+      protected void execAction() {
+        MessageBoxes.createOk()
+            .withBody(BEANS.get(IWebServiceInvoker.class).invoke())
+            .show();
       }
     }
   }
