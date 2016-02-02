@@ -5,13 +5,21 @@ import static org.eclipse.scout.contacts.jobs.helper.Helpers.newClientSession;
 import static org.eclipse.scout.contacts.jobs.helper.Helpers.newServerSession;
 
 import java.security.AccessController;
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import javax.security.auth.Subject;
 
+import org.eclipse.scout.contacts.jobs.helper.Helpers;
 import org.eclipse.scout.contacts.jobs.helper.SubjectRule;
+import org.eclipse.scout.rt.client.context.ClientRunContexts;
+import org.eclipse.scout.rt.client.job.ModelJobs;
+import org.eclipse.scout.rt.platform.context.RunMonitor;
+import org.eclipse.scout.rt.platform.job.FixedDelayScheduleBuilder;
 import org.eclipse.scout.rt.platform.job.IFuture;
 import org.eclipse.scout.rt.platform.job.Jobs;
+import org.eclipse.scout.rt.platform.util.concurrent.IRunnable;
+import org.eclipse.scout.rt.server.context.ServerRunContexts;
 import org.eclipse.scout.rt.server.transaction.ITransaction;
 import org.eclipse.scout.rt.shared.ISession;
 import org.junit.After;
@@ -23,7 +31,6 @@ import org.junit.rules.TestName;
 /**
  * Exercises to migrate from the old to the new Job API shipped with Eclipse Scout Neon.
  */
-@SuppressWarnings("unused")
 public class JobMigrationExercises {
 
   @Rule
@@ -49,6 +56,14 @@ public class JobMigrationExercises {
     */
 
     // TODO Jobs: implement with new Job API of Eclipse Scout 'N' release.
+    Jobs.schedule(new IRunnable() {
+
+      @Override
+      public void run() throws Exception {
+        printCurrentJobInfo();
+      }
+    }, Jobs.newInput()
+        .withName("job-name"));
   }
 
   /**
@@ -72,6 +87,15 @@ public class JobMigrationExercises {
      */
 
     // TODO Jobs: implement with new Job API of Eclipse Scout 'N' release.
+    Jobs.schedule(new IRunnable() {
+
+      @Override
+      public void run() throws Exception {
+        printCurrentJobInfo();
+      }
+    }, Jobs.newInput()
+        .withName("job-name")
+        .withRunContext(ServerRunContexts.copyCurrent()));
   }
 
   /**
@@ -94,6 +118,13 @@ public class JobMigrationExercises {
     */
 
     // TODO Jobs: implement with new Job API of Eclipse Scout 'N' release.
+    ServerRunContexts.copyCurrent().run(new IRunnable() {
+
+      @Override
+      public void run() throws Exception {
+        printCurrentJobInfo();
+      }
+    });
   }
 
   /**
@@ -116,6 +147,16 @@ public class JobMigrationExercises {
     */
 
     // TODO Jobs: implement with new Job API of Eclipse Scout 'N' release.
+    Jobs.schedule(new IRunnable() {
+
+      @Override
+      public void run() throws Exception {
+        printCurrentJobInfo();
+      }
+    }, Jobs.newInput()
+        .withName("job-name")
+        .withRunContext(ServerRunContexts.copyCurrent()
+            .withSubject(Helpers.newSubject("john"))));
   }
 
   /**
@@ -138,6 +179,14 @@ public class JobMigrationExercises {
      */
 
     // TODO Jobs: implement with new Job API of Eclipse Scout 'N' release.
+    ModelJobs.schedule(new IRunnable() {
+
+      @Override
+      public void run() throws Exception {
+        printCurrentJobInfo();
+      }
+    }, ModelJobs.newInput(ClientRunContexts.copyCurrent())
+        .withName("job-name"));
   }
 
   /**
@@ -160,6 +209,15 @@ public class JobMigrationExercises {
      */
 
     // TODO Jobs: implement with new Job API of Eclipse Scout 'N' release.
+    Jobs.schedule(new IRunnable() {
+
+      @Override
+      public void run() throws Exception {
+        printCurrentJobInfo();
+      }
+    }, Jobs.newInput()
+        .withName("job-name")
+        .withRunContext(ClientRunContexts.copyCurrent()));
   }
 
   /**
@@ -180,6 +238,16 @@ public class JobMigrationExercises {
      */
 
     // TODO Jobs: implement with new Job API of Eclipse Scout 'N' release.
+    Jobs.schedule(new IRunnable() {
+
+      @Override
+      public void run() throws Exception {
+        printCurrentJobInfo();
+      }
+    }, Jobs.newInput()
+        .withName("job-name")
+        .withExecutionTrigger(Jobs.newExecutionTrigger()
+            .withStartIn(5, TimeUnit.SECONDS)));
   }
 
   /**
@@ -208,6 +276,17 @@ public class JobMigrationExercises {
      */
 
     // TODO Jobs: implement with new Job API of Eclipse Scout 'N' release.
+    Jobs.schedule(new IRunnable() {
+
+      @Override
+      public void run() throws Exception {
+        printCurrentJobInfo();
+      }
+    }, Jobs.newInput()
+        .withName("job-name")
+        .withExecutionTrigger(Jobs.newExecutionTrigger()
+            .withStartIn(5, TimeUnit.SECONDS)
+            .withSchedule(FixedDelayScheduleBuilder.repeatForTotalCount(3, 5, TimeUnit.SECONDS))));
   }
 
   /**
@@ -237,6 +316,23 @@ public class JobMigrationExercises {
      */
 
     // TODO Jobs: implement with new Job API of Eclipse Scout 'N' release.;
+
+    Jobs.schedule(new IRunnable() {
+
+      @Override
+      public void run() throws Exception {
+        // do first chunk of work
+        if (RunMonitor.CURRENT.get().isCancelled()) {
+          return;
+        }
+        // do second chunk of work
+        if (RunMonitor.CURRENT.get().isCancelled()) {
+          return;
+        }
+        // do third chunk of work
+      }
+    }, Jobs.newInput()
+        .withName("job-name"));
   }
 
   /**
@@ -260,6 +356,16 @@ public class JobMigrationExercises {
      */
 
     // TODO Jobs: implement with new Job API of Eclipse Scout 'N' release.
+    IFuture<Void> future = Jobs.schedule(new IRunnable() {
+
+      @Override
+      public void run() throws Exception {
+        printCurrentJobInfo();
+      }
+    }, Jobs.newInput()
+        .withName("job-name"));
+
+    future.awaitDone();
   }
 
   /**
@@ -283,6 +389,16 @@ public class JobMigrationExercises {
      */
 
     // TODO Jobs: implement with new Job API of Eclipse Scout 'N' release.
+    IFuture<Void> future = Jobs.schedule(new IRunnable() {
+
+      @Override
+      public void run() throws Exception {
+        printCurrentJobInfo();
+      }
+    }, Jobs.newInput()
+        .withName("job-name"));
+
+    future.awaitDone(5, TimeUnit.SECONDS);
   }
 
   /**
@@ -310,6 +426,18 @@ public class JobMigrationExercises {
      */
 
     // TODO Jobs: implement with new Job API of Eclipse Scout 'N' release.
+    IFuture<String> future = Jobs.schedule(new Callable<String>() {
+
+      @Override
+      public String call() throws Exception {
+        printCurrentJobInfo();
+        return "abc";
+      }
+    }, Jobs.newInput()
+        .withName("job-name"));
+
+    String result = future.awaitDoneAndGet();
+    System.out.println(result);
   }
 
   @BeforeClass
