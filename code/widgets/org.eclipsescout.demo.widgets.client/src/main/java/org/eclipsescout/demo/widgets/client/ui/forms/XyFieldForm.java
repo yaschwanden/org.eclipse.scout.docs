@@ -19,6 +19,7 @@ import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipsescout.demo.widgets.client.ui.desktop.outlines.IAdvancedExampleForm;
 import org.eclipsescout.demo.widgets.client.ui.forms.XyFieldForm.MainBox.CloseButton;
 import org.eclipsescout.demo.widgets.client.ui.forms.XyFieldForm.MainBox.ExamplesBox;
+import org.eclipsescout.demo.widgets.client.ui.forms.fields.xy.AbstractXyField;
 
 @Order(100001)
 public class XyFieldForm extends AbstractForm implements IAdvancedExampleForm {
@@ -62,10 +63,9 @@ public class XyFieldForm extends AbstractForm implements IAdvancedExampleForm {
         return TEXTS.get("Examples");
       }
 
-      //TODO HtmlUi 3.5 implement
-//      @Order(1000)
-//      public class XyFieldField extends AbstractXyField {
-//      }
+      @Order(1000)
+      public class XyFieldField extends AbstractXyField {
+      }
 
     }
 

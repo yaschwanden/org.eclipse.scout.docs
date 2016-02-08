@@ -1,1 +1,4 @@
-//TODO HtmlUi 3.1 implement
+.configuration-group-box > .group-box-title {
+  border-bottom-color: @palette-red-4;
+  border-bottom-style: dotted;
+}
