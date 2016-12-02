@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (c) 2015 BSI Business Systems Integration AG.
-    All rights reserved. This program and the accompanying materials
-    are made available under the terms of the Eclipse Distribution License v1.0
-    which accompanies this distribution, and is available at
-    http://www.eclipse.org/org/documents/edl-v10.html
-
-    Contributors:
-        BSI Business Systems Integration AG - initial API and implementation
-
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!-- Copyright (c) 2015 BSI Business Systems Integration AG. All rights reserved.
+  This program and the accompanying materials are made available under the
+  terms of the Eclipse Distribution License v1.0 which accompanies this distribution,
+  and is available at http://www.eclipse.org/org/documents/edl-v10.html Contributors:
+  BSI Business Systems Integration AG - initial API and implementation -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -50,6 +44,38 @@
     <!-- Specific settings for the contact application -->
     <module>../org.eclipse.scout.contacts.settings_java8</module>
   </modules>
+
+  <dependencies>
+    <!-- JUnit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.hamcrest</groupId>
+          <artifactId>hamcrest-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.hamcrest</groupId>
+          <artifactId>hamcrest-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-all</artifactId>
+      <version>1.3</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
   <dependencyManagement>
     <dependencies>
@@ -136,7 +162,7 @@
           </dependencies>
           <configuration>
             <additionalConfig>
-              <!-- Java 8 setting files-->
+              <!-- Java 8 setting files -->
               <file>
                 <name>.settings/org.eclipse.jdt.core.prefs</name>
                 <location>/java8/org.eclipse.jdt.core.prefs</location>
