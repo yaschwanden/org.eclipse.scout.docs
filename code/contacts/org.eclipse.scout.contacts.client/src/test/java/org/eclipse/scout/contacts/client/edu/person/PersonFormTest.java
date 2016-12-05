@@ -26,8 +26,6 @@ import org.mockito.Matchers;
  * Tests for
  * <h3>{@link PersonForm}</h3>
  */
-//TODO Testing 2.1 Testing: Add testing annotations
-//TODO AHO remove annotations
 @RunWithSubject("anonymous")
 @RunWith(ClientTestRunner.class)
 @RunWithClientSession(TestEnvironmentClientSession.class)

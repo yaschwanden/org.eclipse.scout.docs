@@ -10,9 +10,12 @@
  ******************************************************************************/
 package org.eclipse.scout.contacts.server.edu.address;
 
+import org.eclipse.scout.rt.platform.ApplicationScoped;
+
 /**
  *
  */
+@ApplicationScoped
 public interface IAddressService {
 
 }

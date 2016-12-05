@@ -23,7 +23,7 @@ public class ConfigurationTest {
 
     @Override
     public String getKey() {
-      return "contacts_max_lines"; // fix to match the key used in the property
+      return "contacts.max.lines"; // fix to match the key used in the property
     }
 
     @Override
