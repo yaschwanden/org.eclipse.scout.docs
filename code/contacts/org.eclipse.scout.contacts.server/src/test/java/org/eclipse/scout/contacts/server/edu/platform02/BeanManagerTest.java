@@ -43,7 +43,7 @@ public class BeanManagerTest {
    * <p>
    * By default, all classes annotated with {@link Bean} are automatically registered.
    * </p>
-   * TODO: Platform 2.1: provide the {@link IFurniture} to the bean context.
+   * TODO Platform 2.1: provide the {@link IFurniture} to the bean context.
    */
   @Test
   public void getBean() {
