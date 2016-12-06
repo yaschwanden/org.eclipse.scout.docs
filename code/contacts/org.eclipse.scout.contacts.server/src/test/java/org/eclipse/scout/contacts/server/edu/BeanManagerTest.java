@@ -63,7 +63,7 @@ public class BeanManagerTest {
    */
   @Test
   public void lookupByInterface() {
-    IPersonService p = BEANS.get(IPersonService.class);
+    IPersonService p = null;// BEANS.get(...); FIX
     assertThat(p, instanceOf(PersonService.class));
   }
 
@@ -73,7 +73,7 @@ public class BeanManagerTest {
    */
   @Test
   public void multipleInstancesByClass() {
-    IAddressService a = BEANS.get(AddressService.class);
+    IAddressService a = null; // BEANS.get(...); FIX
     assertThat(a, instanceOf(AddressService.class));
   }
 
@@ -83,7 +83,7 @@ public class BeanManagerTest {
    */
   @Test(expected = AssertionException.class)
   public void multipleInstancesByInterface() {
-    BEANS.get(IAddressService.class);
+    // BEANS.get(...); // FIX
   }
 
 }

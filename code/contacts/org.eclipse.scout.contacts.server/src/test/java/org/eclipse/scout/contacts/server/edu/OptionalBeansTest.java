@@ -30,7 +30,7 @@ public class OptionalBeansTest {
    */
   @Test
   public void NonExistingOptional() {
-    assertNull(BEANS.opt(ITestService.class)); //fix
+    assertNull(BEANS.get(ITestService.class)); //fix
   }
 
   /**

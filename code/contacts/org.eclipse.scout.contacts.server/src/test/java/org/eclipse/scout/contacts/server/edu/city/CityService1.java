@@ -10,9 +10,6 @@
  ******************************************************************************/
 package org.eclipse.scout.contacts.server.edu.city;
 
-import org.eclipse.scout.rt.platform.Order;
-
-@Order(1)
 public class CityService1 implements ICityService {
 
 }
