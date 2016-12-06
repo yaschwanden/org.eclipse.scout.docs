@@ -8,13 +8,13 @@
  * Contributors:
  *     BSI Business Systems Integration AG - initial API and implementation
  ******************************************************************************/
-package org.eclipse.scout.contacts.server.edu;
+package org.eclipse.scout.contacts.server.edu.platform03;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.eclipse.scout.contacts.server.edu.email.EmailService;
-import org.eclipse.scout.contacts.server.edu.email.IEmailService;
+import org.eclipse.scout.contacts.server.edu.platform03.fixture.IWaveService;
+import org.eclipse.scout.contacts.server.edu.platform03.fixture.WaveService;
 import org.eclipse.scout.rt.platform.BEANS;
 import org.eclipse.scout.rt.platform.Replace;
 import org.junit.Test;
@@ -22,14 +22,15 @@ import org.junit.Test;
 public class ReplacingBeansTest {
 
   /**
-   * TODO Platform 3.1 Replacing Beans: A bean can be replaced, by using the annotation {@link Replace}. A bean
-   * annotated with replace replaces its superclass.<br>
-   * Fix the test without changing {@link EmailService} or {@link IEmailService}
+   * A bean can be replaced, by using the annotation {@link Replace}. A bean annotated with replace replaces its
+   * superclass.
+   * <p>
+   * TODO Platform 3.1: Fix the test without changing {@link IWaveService} or {@link WaveService}
    */
   @Test
   public void replaceBean() {
-    assertThat(BEANS.get(IEmailService.class).getName(), is("SpecialEmailService"));
-    assertThat(BEANS.get(EmailService.class).getName(), is("SpecialEmailService"));
+    assertThat(BEANS.get(IWaveService.class).getClass().getSimpleName(), is("WaveAndWindService"));
+    assertThat(BEANS.get(WaveService.class).getClass().getSimpleName(), is("WaveAndWindService"));
   }
 
 }
