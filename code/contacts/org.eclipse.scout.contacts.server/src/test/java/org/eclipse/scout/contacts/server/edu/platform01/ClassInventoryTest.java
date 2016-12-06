@@ -8,7 +8,7 @@
  * Contributors:
  *     BSI Business Systems Integration AG - initial API and implementation
  ******************************************************************************/
-package org.eclipse.scout.contacts.server.edu;
+package org.eclipse.scout.contacts.server.edu.platform01;
 
 import static org.eclipse.scout.contacts.server.util.CollectionMatchers.hasEntryMatching;
 import static org.hamcrest.Matchers.hasSize;
@@ -16,9 +16,9 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Set;
 
-import org.eclipse.scout.contacts.server.organization.OrganizationService;
-import org.eclipse.scout.contacts.shared.organization.IOrganizationService;
-import org.eclipse.scout.rt.platform.Bean;
+import org.eclipse.scout.contacts.server.edu.platform01.fixture.Beer;
+import org.eclipse.scout.contacts.server.edu.platform01.fixture.CoronaBean;
+import org.eclipse.scout.contacts.server.edu.platform01.fixture.IBeerBean;
 import org.eclipse.scout.rt.platform.inventory.ClassInventory;
 import org.eclipse.scout.rt.platform.inventory.IClassInfo;
 import org.eclipse.scout.rt.platform.inventory.IClassInventory;
@@ -30,27 +30,27 @@ import org.junit.Test;
 public class ClassInventoryTest {
 
   /**
-   * TODO Platform 1.1 ClassInventory: Browsing the ClassInventory It is possible to find all subclasses with
-   * {@link IClassInventory#getAllKnownSubClasses(Class)}
+   * Browsing the ClassInventory It is possible to find all subclasses with
+   * {@link IClassInventory#getAllKnownSubClasses(Class)}<br>
+   * TODO Platform 1.1: fix test.
    */
   @Test
   public void testFindKnownSubclasses() {
-    Set<IClassInfo> coServices = ClassInventory.get().getAllKnownSubClasses(IOrganizationService.class);
-    assertThat(coServices, hasSize(1));
-    Class<?> expectedClass = OrganizationService.class; //fix: specify the expected class
-    assertThat(coServices, hasEntryMatching(e -> e.resolveClass().equals(expectedClass)));
+    Set<IClassInfo> subClassInfo = ClassInventory.get().getAllKnownSubClasses(IBeerBean.class);
+    assertThat(subClassInfo, hasSize(1));
+    Class<?> expectedSubClass = CoronaBean.class;
+    assertThat(subClassInfo, hasEntryMatching(e -> e.name().equals(expectedSubClass.getName())));
   }
 
   /**
-   * TODO Platform 1.2 ClassInventory: Finding annotated classes Create a new class 'MyService' annotated with
-   * {@link Bean}. <br>
    * The ClassInventory only collects classes in projects with a resource called META-INF/scout.xml. <br>
-   * See what happens, if you delete the scout.xml file.
+   * See what happens, if you delete the scout.xml file.<br>
+   * TODO Platform 1.2: Fix test. Hint: add a {@link Beer} annotation.<br>
    */
   @Test
   public void testFindAnnotations() {
-    Set<IClassInfo> beanClasses = ClassInventory.get().getKnownAnnotatedTypes(Bean.class);
-    assertThat(beanClasses, hasEntryMatching(e -> e.name().endsWith("MyService")));
+    Set<IClassInfo> beanClasses = ClassInventory.get().getKnownAnnotatedTypes(Beer.class);
+    assertThat(beanClasses, hasEntryMatching(e -> CoronaBean.class.getName().equals(e.name())));
   }
 
 }
