@@ -1,9 +1,7 @@
 package org.eclipse.scout.contacts.server.util;
 
 /**
- * <h3>{@link TODO}</h3>
- *
- * @author aho
+ * Dummy class to use as placeholder.
  */
 public class TODO {
 
