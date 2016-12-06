@@ -27,6 +27,7 @@ import org.eclipse.scout.rt.platform.BEANS;
 import org.eclipse.scout.rt.platform.Bean;
 import org.eclipse.scout.rt.platform.IBeanManager;
 import org.eclipse.scout.rt.platform.util.Assertions.AssertionException;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -70,7 +71,7 @@ public class BeanManagerTest {
   @Test
   public void lookupByInterface() {
     IKitchenFurniture bean = BEANS.get(IKitchenFurniture.class);
-    assertThat(bean, instanceOf(KitchenTable.class));
+    Assert.assertEquals(bean.getClass(), KitchenTable.class);
   }
 
   /**

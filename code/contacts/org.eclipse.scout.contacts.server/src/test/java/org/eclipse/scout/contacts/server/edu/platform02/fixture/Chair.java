@@ -4,8 +4,6 @@ import org.eclipse.scout.rt.platform.ApplicationScoped;
 
 /**
  * <h3>{@link Chair}</h3>
- *
- * @author aho
  */
 @ApplicationScoped
 public class Chair implements IFurniture {
