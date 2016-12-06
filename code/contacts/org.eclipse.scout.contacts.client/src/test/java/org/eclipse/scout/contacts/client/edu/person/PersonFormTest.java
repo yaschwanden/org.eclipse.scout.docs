@@ -7,6 +7,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import org.eclipse.scout.contacts.client.person.PersonForm;
+import org.eclipse.scout.contacts.client.person.PersonForm.MainBox.GeneralBox.DateOfBirthField;
 import org.eclipse.scout.contacts.shared.organization.IOrganizationLookupService;
 import org.eclipse.scout.contacts.shared.person.IPersonService;
 import org.eclipse.scout.contacts.shared.person.PersonFormData;
@@ -27,7 +28,6 @@ import org.mockito.Matchers;
  * <h3>{@link PersonForm}</h3>
  */
 //TODO Testing 2.1 Testing: Add testing annotations
-//TODO AHO remove annotations
 @RunWithSubject("anonymous")
 @RunWith(ClientTestRunner.class)
 @RunWithClientSession(TestEnvironmentClientSession.class)
@@ -58,6 +58,10 @@ public class PersonFormTest {
     form.doCancel();
   }
 
+  /**
+   * TODO Testing 2.2: create a test check if the validation on the {@link DateOfBirthField} fails in case of a date in
+   * future.
+   */
   @Test
   public void testDateOfBirthValidation() {
     PersonForm form = new PersonForm();
