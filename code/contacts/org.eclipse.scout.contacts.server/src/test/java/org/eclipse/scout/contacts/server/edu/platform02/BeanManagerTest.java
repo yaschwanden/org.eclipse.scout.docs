@@ -103,7 +103,11 @@ public class BeanManagerTest {
    * there are several beans registered with the same order (or none) under the query an {@link AssertionException} is
    * thrown.
    * <p>
+<<<<<<< features/course_neon_upgrade_6_1
    * TODO Platform 2.6: fix bean lookup
+=======
+   * TODO Platform 2.6: fix the bean lookup
+>>>>>>> 918866b removed old fixme and todos
    */
   @Test
   public void optionalGet() {
