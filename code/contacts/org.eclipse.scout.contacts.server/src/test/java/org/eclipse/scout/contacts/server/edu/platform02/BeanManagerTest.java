@@ -102,7 +102,7 @@ public class BeanManagerTest {
    * there are several beans registered with the same order (or none) under the query an {@link AssertionException} is
    * thrown.
    * <p>
-   * TODO:
+   * TODO Platform 2.6: fix the bean lookup
    */
   @Test
   public void optionalGet() {
