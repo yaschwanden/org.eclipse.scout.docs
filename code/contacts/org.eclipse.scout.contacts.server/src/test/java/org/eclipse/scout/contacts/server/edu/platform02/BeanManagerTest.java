@@ -22,11 +22,13 @@ import org.eclipse.scout.contacts.server.edu.platform02.fixture.IFurniture;
 import org.eclipse.scout.contacts.server.edu.platform02.fixture.IKitchenFurniture;
 import org.eclipse.scout.contacts.server.edu.platform02.fixture.INonExistingBean;
 import org.eclipse.scout.contacts.server.edu.platform02.fixture.KitchenTable;
+import org.eclipse.scout.contacts.server.util.TODO;
 import org.eclipse.scout.rt.platform.ApplicationScoped;
 import org.eclipse.scout.rt.platform.BEANS;
 import org.eclipse.scout.rt.platform.Bean;
 import org.eclipse.scout.rt.platform.IBeanManager;
 import org.eclipse.scout.rt.platform.util.Assertions.AssertionException;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -65,12 +67,12 @@ public class BeanManagerTest {
   /**
    * Bean lookup also works with an interface, which is usually the preferred way.
    * <p>
-   * TODO Platform 2.3
+   * TODO Platform 2.3: fix the second argument assertion.
    */
   @Test
   public void lookupByInterface() {
     IKitchenFurniture bean = BEANS.get(IKitchenFurniture.class);
-    assertThat(bean, instanceOf(KitchenTable.class));
+    Assert.assertEquals(bean.getClass(), TODO.class);
   }
 
   /**
@@ -81,7 +83,7 @@ public class BeanManagerTest {
    */
   @Test
   public void multipleInstancesByClass() {
-    IFurniture a = BEANS.get(Chair.class);
+    IFurniture a = BEANS.get(IFurniture.class);
     assertThat(a, instanceOf(Chair.class));
   }
 
@@ -91,7 +93,7 @@ public class BeanManagerTest {
    * <p>
    * TODO Platform 2.5: fix the test below.
    */
-  @Test(expected = AssertionException.class)
+  @Test(expected = NullPointerException.class)
   public void multipleInstancesByInterface() {
     BEANS.get(IFurniture.class);
   }
@@ -101,11 +103,11 @@ public class BeanManagerTest {
    * there are several beans registered with the same order (or none) under the query an {@link AssertionException} is
    * thrown.
    * <p>
-   * TODO:
+   * TODO Platform 2.6: fix bean lookup
    */
   @Test
   public void optionalGet() {
-    assertThat(BEANS.opt(INonExistingBean.class), nullValue());
+    assertThat(BEANS.get(INonExistingBean.class), nullValue());
   }
 
 }

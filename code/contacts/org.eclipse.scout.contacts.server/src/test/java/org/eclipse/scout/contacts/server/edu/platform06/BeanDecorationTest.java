@@ -29,17 +29,17 @@ public class BeanDecorationTest {
   @Test
   public void decorateBean() {
     ILamp lamp = BEANS.get(ILamp.class);
-    assertThat(BeanDecorator.getInstanceCount(), is(1));
-    assertThat(BeanDecorator.getSwitchOnCount(), is(0));
-    assertThat(BeanDecorator.getSwitchOffCount(), is(0));
+    assertThat(BeanDecorator.getInstanceCount(), is(-1));
+    assertThat(BeanDecorator.getSwitchOnCount(), is(-1));
+    assertThat(BeanDecorator.getSwitchOffCount(), is(-1));
     lamp.switchOn();
-    assertThat(BeanDecorator.getInstanceCount(), is(1));
-    assertThat(BeanDecorator.getSwitchOnCount(), is(1));
-    assertThat(BeanDecorator.getSwitchOffCount(), is(0));
+    assertThat(BeanDecorator.getInstanceCount(), is(-1));
+    assertThat(BeanDecorator.getSwitchOnCount(), is(-1));
+    assertThat(BeanDecorator.getSwitchOffCount(), is(-1));
     lamp.switchOff();
-    assertThat(BeanDecorator.getInstanceCount(), is(1));
-    assertThat(BeanDecorator.getSwitchOnCount(), is(1));
-    assertThat(BeanDecorator.getSwitchOffCount(), is(1));
+    assertThat(BeanDecorator.getInstanceCount(), is(-1));
+    assertThat(BeanDecorator.getSwitchOnCount(), is(-1));
+    assertThat(BeanDecorator.getSwitchOffCount(), is(-1));
   }
 
   /**
@@ -50,13 +50,13 @@ public class BeanDecorationTest {
   @Test
   public void tryDecorateInstance() {
     ILamp lamp = BEANS.get(TableLamp.class);
-    assertThat(BeanDecorator.getInstanceCount(), is(0));
-    assertThat(BeanDecorator.getSwitchOnCount(), is(0));
-    assertThat(BeanDecorator.getSwitchOffCount(), is(0));
+    assertThat(BeanDecorator.getInstanceCount(), is(-1));
+    assertThat(BeanDecorator.getSwitchOnCount(), is(-1));
+    assertThat(BeanDecorator.getSwitchOffCount(), is(-1));
     lamp.switchOn();
-    assertThat(BeanDecorator.getInstanceCount(), is(0));
-    assertThat(BeanDecorator.getSwitchOnCount(), is(0));
-    assertThat(BeanDecorator.getSwitchOffCount(), is(0));
+    assertThat(BeanDecorator.getInstanceCount(), is(-1));
+    assertThat(BeanDecorator.getSwitchOnCount(), is(-1));
+    assertThat(BeanDecorator.getSwitchOffCount(), is(-1));
 
   }
 }

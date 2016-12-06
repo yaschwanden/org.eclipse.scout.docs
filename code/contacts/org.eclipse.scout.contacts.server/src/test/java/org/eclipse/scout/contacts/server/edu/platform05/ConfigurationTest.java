@@ -31,7 +31,7 @@ public class ConfigurationTest {
 
   /**
    * TODO: Platform 5.2: Create the inner class BirthdayProperty in {@link ConfigProperties}. This property parses a
-   * {@link LocalDate} out of the config property. <br>
+   * {@link LocalDate} out of the existing config property. <br>
    * Hint: use {@link LocalDate#parse(CharSequence, DateTimeFormatter)} and {@link DateTimeFormatter#ofPattern(String)}
    * with the pattern 'dd.MM.yyyy'.
    */

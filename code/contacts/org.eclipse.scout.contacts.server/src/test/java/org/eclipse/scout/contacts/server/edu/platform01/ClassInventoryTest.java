@@ -31,20 +31,22 @@ public class ClassInventoryTest {
 
   /**
    * Browsing the ClassInventory It is possible to find all subclasses with
-   * {@link IClassInventory#getAllKnownSubClasses(Class)}<br>
+   * {@link IClassInventory#getAllKnownSubClasses(Class)}
+   * <p>
    * TODO Platform 1.1: fix test.
    */
   @Test
   public void testFindKnownSubclasses() {
     Set<IClassInfo> subClassInfo = ClassInventory.get().getAllKnownSubClasses(IBeerBean.class);
     assertThat(subClassInfo, hasSize(1));
-    Class<?> expectedSubClass = CoronaBean.class;
+    Class<?> expectedSubClass = Object.class; // provide the correct class
     assertThat(subClassInfo, hasEntryMatching(e -> e.name().equals(expectedSubClass.getName())));
   }
 
   /**
    * The ClassInventory only collects classes in projects with a resource called META-INF/scout.xml. <br>
-   * See what happens, if you delete the scout.xml file.<br>
+   * See what happens, if you delete the scout.xml file.
+   * <p>
    * TODO Platform 1.2: Fix test. Hint: add a {@link Beer} annotation.<br>
    */
   @Test
