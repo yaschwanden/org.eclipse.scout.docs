@@ -30,6 +30,8 @@ import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringFiel
 import org.eclipse.scout.rt.client.ui.messagebox.MessageBoxes;
 import org.eclipse.scout.rt.platform.Order;
 import org.eclipse.scout.rt.platform.exception.ProcessingException;
+import org.eclipse.scout.rt.platform.html.HTML;
+import org.eclipse.scout.rt.platform.html.IHtmlContent;
 import org.eclipse.scout.rt.platform.resource.BinaryResource;
 import org.eclipse.scout.rt.platform.util.IOUtility;
 import org.eclipse.scout.rt.shared.TEXTS;
@@ -39,6 +41,7 @@ import org.eclipse.scout.widgets.client.ui.forms.HtmlFieldForm.MainBox.CloseButt
 import org.eclipse.scout.widgets.client.ui.forms.HtmlFieldForm.MainBox.ConfigurationGroupBox;
 import org.eclipse.scout.widgets.client.ui.forms.HtmlFieldForm.MainBox.ConfigurationGroupBox.EnabledCheckBox;
 import org.eclipse.scout.widgets.client.ui.forms.HtmlFieldForm.MainBox.ConfigurationGroupBox.SetContentButtonsBox;
+import org.eclipse.scout.widgets.client.ui.forms.HtmlFieldForm.MainBox.ConfigurationGroupBox.SetContentButtonsBox.AppLinksButton;
 import org.eclipse.scout.widgets.client.ui.forms.HtmlFieldForm.MainBox.ConfigurationGroupBox.SetContentButtonsBox.BlankButton;
 import org.eclipse.scout.widgets.client.ui.forms.HtmlFieldForm.MainBox.ConfigurationGroupBox.SetContentButtonsBox.ScoutHtmlButton;
 import org.eclipse.scout.widgets.client.ui.forms.HtmlFieldForm.MainBox.GroupBox;
@@ -63,8 +66,8 @@ public class HtmlFieldForm extends AbstractForm implements IAdvancedExampleForm 
 
   @Override
   protected void execInitForm() {
-    // Load "Scout HTML" page by default
-    getScoutHtmlButton().doClick();
+    // Load "App links" page by default
+    getAppLinksButton().doClick();
   }
 
   @Override
@@ -95,6 +98,10 @@ public class HtmlFieldForm extends AbstractForm implements IAdvancedExampleForm 
 
   public ScoutHtmlButton getScoutHtmlButton() {
     return getFieldByClass(ScoutHtmlButton.class);
+  }
+
+  public AppLinksButton getAppLinksButton() {
+    return getFieldByClass(AppLinksButton.class);
   }
 
   public ConfigurationGroupBox getConfigurationGroupBox() {
@@ -174,8 +181,11 @@ public class HtmlFieldForm extends AbstractForm implements IAdvancedExampleForm 
 
         @Override
         protected void execAppLinkAction(String ref) {
-          MessageBoxes.createOk().withHeader(TEXTS.get("LocalUrlClicked")).withBody(TEXTS.get("Parameters") + ":\n" + ref).show();
+          if ("2".equals(ref)) {
+            MessageBoxes.createOk().withBody("Second link was clicked").show();
+          }
         }
+
       }
     }
 
@@ -291,6 +301,26 @@ public class HtmlFieldForm extends AbstractForm implements IAdvancedExampleForm 
           protected void execClickAction() {
             BinaryResource file = loadResource("icons/eclipse_scout_logo.png", "eclipse_scout_logo.png");
             loadFile("HtmlFieldCustomHtml.html", Collections.singletonList(file));
+          }
+        }
+
+        @Order(30)
+        public class AppLinksButton extends AbstractLinkButton {
+
+          @Override
+          protected String getConfiguredLabel() {
+            return "AppLinks";
+          }
+
+          @Override
+          protected void execClickAction() {
+            getHtmlField().setValue(null);
+            IHtmlContent html = HTML.div(
+                HTML.appLink("1", "First Link"),
+                HTML.br(),
+                HTML.appLink("2", "Second Link"));
+
+            getHtmlField().setValue(html.toHtml());
           }
         }
 

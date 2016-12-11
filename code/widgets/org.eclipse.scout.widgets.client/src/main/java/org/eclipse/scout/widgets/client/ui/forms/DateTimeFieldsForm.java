@@ -640,6 +640,11 @@ public class DateTimeFieldsForm extends AbstractForm implements IPageForm {
         return TEXTS.get("Configure");
       }
 
+      @Override
+      protected String getConfiguredCssClass() {
+        return "configuration-group-box";
+      }
+
       @Order(10)
       public class ConfigurationColumn0Box extends AbstractGroupBox {
 
