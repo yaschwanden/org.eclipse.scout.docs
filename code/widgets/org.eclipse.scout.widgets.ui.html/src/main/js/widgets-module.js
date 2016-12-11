@@ -9,4 +9,5 @@
 (function(scout, $, undefined) {
   __include("widgets/ExampleBeanField.js");
   __include("widgets/ExampleBeanColumn.js");
+  __include("widgets/XyFieldAdapter.js");
 }(scout, jQuery));

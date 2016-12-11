@@ -26,21 +26,8 @@ scout.ExampleBeanField.prototype._renderValue = function() {
     return;
   }
 
-  var $header = this.$field.appendDiv('example-bean-field-header')
-    .text(this.value.header);
-  var $content = this.$field.appendDiv('example-bean-field-content');
-  $content.appendElement('<p>')
-    .text(this.value.description);
-
-  $content.appendElement('<p>')
-    .text(this.session.text('ExampleBeanFieldUiText'));
-
-  $content.appendElement('<p>')
-    .text(this.session.text('ExampleBeanFieldAppLinkText') + ' ')
-    .appendAppLink(this.value.appLink);
-
-  $content.appendElement('<p>')
-    .appendElement('<img>')
-    .attr('src', this.value.image)
-    .addClass('example-bean-field-image');
+  // TODO HtmlUi 3.4 implement
+  // Use jquery to create and append elements (e.g. http://api.jquery.com/appendto/)
+  // Use this.session.text('ExampleBeanFieldUiText') and this.session.text('ExampleBeanFieldAppLinkText') to get the text for the content
+  // Use $link.appendAppLink() to create and append the app link
 };

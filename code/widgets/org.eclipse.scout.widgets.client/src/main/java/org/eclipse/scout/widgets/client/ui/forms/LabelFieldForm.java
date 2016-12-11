@@ -155,8 +155,7 @@ public class LabelFieldForm extends AbstractForm implements IPageForm {
 
         @Override
         protected void execInitField() {
-          String value = TEXTS.get("Lorem");
-          this.setValue(value);
+          //TODO HtmlUi 3.2 implement
         }
       }
 

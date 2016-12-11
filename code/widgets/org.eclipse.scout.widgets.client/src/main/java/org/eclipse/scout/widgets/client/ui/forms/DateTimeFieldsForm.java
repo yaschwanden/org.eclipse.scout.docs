@@ -628,6 +628,7 @@ public class DateTimeFieldsForm extends AbstractForm implements IPageForm {
     }
 
     @Order(20)
+    //TODO HtmlUi 3.1 implement
     public class ConfigurationBox extends AbstractGroupBox {
 
       @Override
