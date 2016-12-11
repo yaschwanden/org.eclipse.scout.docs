@@ -12,8 +12,8 @@ widgets.ExampleBeanField = function() {
 };
 scout.inherits(widgets.ExampleBeanField, scout.BeanField);
 
-widgets.ExampleBeanField.prototype._render = function() {
-  widgets.ExampleBeanField.parent.prototype._render.call(this);
+widgets.ExampleBeanField.prototype._render = function($parent) {
+  widgets.ExampleBeanField.parent.prototype._render.call(this, $parent);
   this.$container.addClass('example-bean-field');
 };
 
@@ -26,22 +26,8 @@ widgets.ExampleBeanField.prototype._renderValue = function() {
     return;
   }
 
-  var $header = this.$field.appendDiv('example-bean-field-header')
-    .text(this.value.header);
-  var $content = this.$field.appendDiv('example-bean-field-content');
-  $content.appendElement('<p>')
-    .text(this.value.description);
-
-  $content.appendElement('<p>')
-    .text(this.session.text('ExampleBeanFieldUiText'));
-
-  $content.appendElement('<p>')
-    .text(this.session.text('ExampleBeanFieldAppLinkText') + ' ')
-    .appendAppLink(this.value.appLink);
-
-  $content.appendElement('<p>')
-    .appLink(this.value.appLink.ref)
-    .appendElement('<img>')
-    .attr('src', this.value.image)
-    .addClass('example-bean-field-image');
+  // TODO HtmlUi 3.4 implement
+  // Use jquery to create and append elements (e.g. http://api.jquery.com/appendto/)
+  // Use this.session.text('ExampleBeanFieldUiText') and this.session.text('ExampleBeanFieldAppLinkText') to get the text for the content
+  // Use $link.appendAppLink() to create and append the app link
 };

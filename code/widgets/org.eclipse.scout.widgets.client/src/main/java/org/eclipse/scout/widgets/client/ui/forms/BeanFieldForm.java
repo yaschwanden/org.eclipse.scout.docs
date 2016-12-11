@@ -24,7 +24,6 @@ import org.eclipse.scout.rt.client.ui.messagebox.MessageBoxes;
 import org.eclipse.scout.rt.platform.Order;
 import org.eclipse.scout.rt.platform.classid.ClassId;
 import org.eclipse.scout.rt.platform.exception.ProcessingException;
-import org.eclipse.scout.rt.platform.html.AppLink;
 import org.eclipse.scout.rt.platform.resource.BinaryResource;
 import org.eclipse.scout.rt.platform.text.TEXTS;
 import org.eclipse.scout.rt.platform.util.IOUtility;
@@ -99,12 +98,8 @@ public class BeanFieldForm extends AbstractForm implements IAdvancedExampleForm 
 
         @Override
         protected void execInitField() {
-          ExampleBean bean = new ExampleBean();
-          bean.setHeader(TEXTS.get("ExampleBeanFieldHeader"));
-          bean.setDescription(TEXTS.get("ExampleBeanFieldDescription"));
-          bean.setAppLink(new AppLink("exampleRef", TEXTS.get("ExampleBeanFieldAppLink")));
-          bean.setImage(getSampleImage());
-          setValue(bean);
+          //TODO HtmlUi 3.4 implement¨
+//          setValue(bean);
         }
 
         @Override
