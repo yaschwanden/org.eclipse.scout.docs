@@ -11,4 +11,6 @@
   __include("widgets/ExampleBeanColumn.js");
   __include("widgets/tile/CustomTile.js");
   __include("widgets/tile/CustomTileAdapter.js");
+  __include("widgets/XyField.js");
+  __include("widgets/XyFieldAdapter.js");
 }(window.widgets = window.widgets || {}, jQuery)); //NOSONAR
