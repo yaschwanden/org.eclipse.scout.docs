@@ -27,7 +27,7 @@ public class ButtonFormTest extends AbstractSeleniumTest {
   }
 
   @Test
-  public void testLabelTextChanges() {
+  public void testButtonLabelTextChanges() {
     /* TODO: Selenium Test - write a Selenium test which types 'Scout' into the 'Label' string field,
      * tabs out of it and asserts that the label of the button changes. Note: since this is a client
      * server application we cannot assume that the change happens immediately, it is not a synchronous
