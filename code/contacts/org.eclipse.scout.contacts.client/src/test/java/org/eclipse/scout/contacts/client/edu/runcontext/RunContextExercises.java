@@ -1,9 +1,11 @@
 package org.eclipse.scout.contacts.client.edu.runcontext;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -22,11 +24,14 @@ import org.eclipse.scout.rt.platform.nls.NlsLocale;
 import org.eclipse.scout.rt.platform.transaction.ITransaction;
 import org.eclipse.scout.rt.platform.transaction.ITransactionMember;
 import org.eclipse.scout.rt.platform.util.concurrent.IRunnable;
+import org.eclipse.scout.rt.testing.platform.runner.PlatformTestRunner;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * Exercises for {@link RunContext}.
  */
+@RunWith(PlatformTestRunner.class)
 public class RunContextExercises {
 
   private static final Subject JOHN = EduUtility.newSubject("john");
@@ -98,13 +103,27 @@ public class RunContextExercises {
   }
 
   /**
-   * TODO RunContext: Run the {@link Runnable} with a detached {@link RunMonitor} so that execution is not cancelled.
+   * TODO RunContext: Run the {@link Runnable} with a attached {@link RunMonitor} so that execution is cancelled.
    */
   @Test
   public void exercise_6() {
     RunContexts.empty().run(() -> {
-      RunMonitor.CURRENT.get().cancel(true);
+      RunMonitor.CURRENT.get().cancel(false);
 
+      IRunnable runnable = () -> assertTrue(RunMonitor.CURRENT.get().isCancelled());
+      // write code here
+    });
+  }
+
+  /**
+   * TODO RunContext: Run the {@link Runnable} with a detached {@link RunMonitor} so that execution is not cancelled.
+   */
+  @Test
+  public void exercise_7() {
+    RunContexts.empty().run(() -> {
+      RunMonitor.CURRENT.get().cancel(false);
+
+      IRunnable runnable = () -> assertFalse(RunMonitor.CURRENT.get().isCancelled());
       // write code here
     });
   }

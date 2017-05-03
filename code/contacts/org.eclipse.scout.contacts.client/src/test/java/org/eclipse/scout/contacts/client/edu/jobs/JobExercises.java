@@ -1,30 +1,36 @@
 package org.eclipse.scout.contacts.client.edu.jobs;
 
 import java.security.AccessController;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Pattern;
 
 import javax.security.auth.Subject;
 
 import org.eclipse.scout.contacts.client.edu.EduUtility;
+import org.eclipse.scout.contacts.client.edu.EduUtility.Logger;
 import org.eclipse.scout.rt.platform.context.RunContext;
 import org.eclipse.scout.rt.platform.context.RunContexts;
+import org.eclipse.scout.rt.platform.holders.Holder;
 import org.eclipse.scout.rt.platform.job.FixedDelayScheduleBuilder;
 import org.eclipse.scout.rt.platform.job.IExecutionSemaphore;
+import org.eclipse.scout.rt.platform.job.IFuture;
 import org.eclipse.scout.rt.platform.job.Jobs;
+import org.eclipse.scout.rt.platform.nls.NlsLocale;
 import org.eclipse.scout.rt.platform.util.Assertions;
 import org.eclipse.scout.rt.platform.util.SleepUtil;
 import org.eclipse.scout.rt.platform.util.concurrent.IBiConsumer;
 import org.eclipse.scout.rt.platform.util.concurrent.IRunnable;
-import org.eclipse.scout.rt.shared.ISession;
-import org.junit.After;
-import org.junit.BeforeClass;
+import org.eclipse.scout.rt.testing.platform.runner.PlatformTestRunner;
+import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.quartz.CronExpression;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.SimpleScheduleBuilder;
@@ -32,6 +38,7 @@ import org.quartz.SimpleScheduleBuilder;
 /**
  * Exercises for the new Job API in Eclipse Scout 6.1.x.
  */
+@RunWith(PlatformTestRunner.class)
 public class JobExercises {
 
   private static final Subject JOHN = EduUtility.newSubject("john");
@@ -64,10 +71,15 @@ public class JobExercises {
 
   /**
    * TODO Jobs: Schedule a job that runs once
+   *
+   * @throws Exception
    */
   @Test
-  public void exercise_1() {
-    IRunnable runnable = () -> log("exercise_1");
+  public void exercise_1() throws Exception {
+    Logger logger = Mockito.spy(new Logger());
+
+    IRunnable runnable = () -> logger.log("exercise_1");
+
   }
 
   /**
@@ -75,7 +87,13 @@ public class JobExercises {
    */
   @Test
   public void exercise_2() {
-    IRunnable runnable = () -> log("exercise_2");
+    Logger logger = Mockito.spy(new Logger());
+    IRunnable runnable = () -> logger.log("exercise_2");
+
+    // code here
+
+    // assertions
+    Mockito.verify(logger, Mockito.times(1)).log(Mockito.anyString());
   }
 
   /**
@@ -84,10 +102,17 @@ public class JobExercises {
    */
   @Test
   public void exercise_3() {
+    Logger logger = Mockito.spy(new Logger());
     Callable<String> callable = () -> {
-      log("exercise_3");
+      logger.log("exercise_3");
       return "doing something";
     };
+
+    String result = null;// code here
+
+    // assertions
+    Mockito.verify(logger, Mockito.times(1)).log(Mockito.anyString());
+    Assert.assertEquals("doing something", result);
   }
 
   /**
@@ -97,18 +122,39 @@ public class JobExercises {
    */
   @Test
   public void exercise_4() {
-    IRunnable runnable1 = () -> log("exercise_4: job-1");
-    IRunnable runnable2 = () -> log("exercise_4: job-2");
+    Logger logger = Mockito.spy(new Logger());
+    IRunnable runnable1 = () -> logger.log("exercise_4: job-1");
+    IRunnable runnable2 = () -> logger.log("exercise_4: job-2");
+
+    // code here
+
+    // assertions
+    Mockito.verify(logger, Mockito.times(2)).log(Mockito.anyString());
   }
 
   /**
-   * TODO Jobs: Schedule a job that runs as JOHN with a 'US Locale'.
+   * TODO Jobs: Schedule a job that runs as JOHN with a 'US Locale' and wait for completion.
    * <p>
    * Hint: Use the Subject JOHN as declared by this class.
    */
   @Test
   public void exercise_5() {
-    IRunnable runnable = () -> log("exercise_5");
+    Logger logger = Mockito.spy(new Logger());
+    Holder<Subject> subject = new Holder<Subject>();
+    Holder<Locale> locale = new Holder<Locale>();
+
+    IRunnable runnable = () -> {
+      logger.log("exercise_5");
+      subject.setValue(Subject.getSubject(AccessController.getContext()));
+      locale.setValue(NlsLocale.CURRENT.get());
+    };
+
+    // code here
+
+    // assertions
+    Mockito.verify(logger, Mockito.times(1)).log(Mockito.anyString());
+    Assert.assertEquals(JOHN, subject.getValue());
+    Assert.assertEquals(Locale.US, locale.getValue());
   }
 
   /**
@@ -118,35 +164,67 @@ public class JobExercises {
    */
   @Test
   public void exercise_6() {
+    Logger logger = Mockito.spy(new Logger());
+    List<Integer> executionList = new ArrayList<>();
+
     IExecutionSemaphore mutex = Jobs.newExecutionSemaphore(1 /* 1=mutual exclusion */);
 
     IRunnable runnable1 = () -> {
-      log("exercise_6: job-1");
-      Thread.sleep(2000);
+      logger.log("exercise_6: job-1");
+      executionList.add(1);
+      Thread.sleep(1000);
     };
     IRunnable runnable2 = () -> {
-      log("exercise_6: job-2");
-      Thread.sleep(2000);
+      logger.log("exercise_6: job-2");
+      executionList.add(2);
+      Thread.sleep(1000);
     };
 
     IRunnable runnable3 = () -> {
-      log("exercise_6: job-3");
-      Thread.sleep(2000);
+      logger.log("exrcise_6: job-3");
+      executionList.add(3);
+      Thread.sleep(1000);
     };
+
+    // code here assign the futures
+    IFuture<Void> future1 = null;
+
+    IFuture<Void> future2 = null;
+
+    IFuture<Void> future3 = null;
+
+    // wait for all
+    Jobs.getJobManager().awaitDone(
+        Jobs.newFutureFilterBuilder()
+            .andMatchFuture(future1, future2, future3).toFilter(),
+        10, TimeUnit.SECONDS);
+
+    // assertions
+    Mockito.verify(logger, Mockito.times(3)).log(Mockito.anyString());
+    Assert.assertArrayEquals(new Integer[]{1, 2, 3}, executionList.toArray());
   }
 
   /**
-   * TODO Jobs: Schedule a repetitive job which starts in 3 seconds and runs 5 times at every two second.
+   * TODO Jobs: Schedule a repetitive job which starts in 3 seconds and runs 4 times (total) at every two second.
    * <p>
    * Hint: Use an execution trigger (Jobs.newExecutionTrigger())<br>
    * Hint: Use {@link SimpleScheduleBuilder} as schedule (static factory methods)<br>
+   * Hint: Use {@link EduUtility#schedule(IRunnable, org.eclipse.scout.rt.platform.job.JobInput)} instead of
+   * {@link Jobs#schedule(IRunnable, org.eclipse.scout.rt.platform.job.JobInput)}
    */
   @Test
   public void exercise_7() {
+    Logger logger = Mockito.spy(new Logger());
+
     IRunnable runnable = () -> {
-      log("exercise_7 (sleeps 1s)");
-      Thread.sleep(1_000);
+      logger.log("exercise_7 (sleeps 1s)");
+      Thread.sleep(1000);
     };
+
+    // code here
+
+    // assertions
+    Mockito.verify(logger, Mockito.times(4)).log(Mockito.anyString());
   }
 
   /**
@@ -155,37 +233,61 @@ public class JobExercises {
    * <p>
    * Hint: Use an execution trigger (Jobs.newExecutionTrigger())<br>
    * Hint: Use {@link FixedDelayScheduleBuilder} as schedule (static factory methods)<br>
+   * Hint: Use {@link EduUtility#schedule(IRunnable, org.eclipse.scout.rt.platform.job.JobInput)} instead of
+   * {@link Jobs#schedule(IRunnable, org.eclipse.scout.rt.platform.job.JobInput)}
    */
   @Test
   public void exercise_8() {
+    Logger logger = Mockito.spy(new Logger());
+
     IRunnable runnable = () -> {
-      log("exercise_8 (sleeps 1s)");
+      logger.log("exercise_8 (sleeps 1s)");
       Thread.sleep(1_000);
     };
+
+    // code here
+
+    // assertions
+    Mockito.verify(logger, Mockito.times(5)).log(Mockito.anyString());
   }
 
   /**
-   * TODO Jobs: Schedule a job which runs every 10 seconds from Monday to Friday.
+   * TODO Schedule a job which runs every 10 seconds from Monday to Friday.
    * <p>
    * Hint: Use an execution trigger (Jobs.newExecutionTrigger())<br>
    * Hint: Use {@link CronScheduleBuilder} as schedule (static factory methods)<br>
-   * Hint: See {@link CronExpression} to specify the CRON expression
+   * Hint: See {@link CronExpression} to specify the CRON expression Hint: Use
+   * {@link EduUtility#schedule(IRunnable, org.eclipse.scout.rt.platform.job.JobInput)} instead of
+   * {@link Jobs#schedule(IRunnable, org.eclipse.scout.rt.platform.job.JobInput)}
    */
   @Test
   public void exercise_9() {
-    IRunnable runnable = () -> log("exercise_9");
+    Logger logger = Mockito.spy(new Logger());
+
+    IRunnable runnable = () -> logger.log("exercise_9");
+
+    // code here
+
+    // assertions
+    Mockito.verify(logger, Mockito.atLeast(3)).log(Mockito.anyString());
   }
 
   /**
-   * TODO Jobs: Schedule a job which runs at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday.
+   * TODO Schedule a job which runs at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday.
    * <p>
    * Hint: Use an execution trigger (Jobs.newExecutionTrigger())<br>
    * Hint: Use {@link CronScheduleBuilder} as schedule (static factory methods)<br>
-   * Hint: See {@link CronExpression} to specify the CRON expression
+   * Hint: See {@link CronExpression} to specify the CRON expression<br>
+   * Hint: Use {@link EduUtility#schedule(IRunnable, org.eclipse.scout.rt.platform.job.JobInput)} instead of
+   * {@link Jobs#schedule(IRunnable, org.eclipse.scout.rt.platform.job.JobInput)}
    */
   @Test
   public void exercise_10() {
-    IRunnable runnable = () -> log("exercise_10");
+    Logger logger = Mockito.spy(new Logger());
+
+    IRunnable runnable = () -> logger.log("exercise_10");
+
+    // code here
   }
 
   /**
@@ -193,14 +295,26 @@ public class JobExercises {
    */
   @Test
   public void exercise_11() {
+    Logger logger = Mockito.spy(new Logger());
+
     IExecutionSemaphore semaphore = Jobs.newExecutionSemaphore(5);
 
-    for (int i = 0; i < 100; i++) {
-      IRunnable runnable = () -> {
-        log("exercise_11");
-        Thread.sleep(TimeUnit.SECONDS.toMillis(5));
-      };
+    IRunnable runnable = () -> {
+      logger.log("exercise_11");
+      Thread.sleep(TimeUnit.SECONDS.toMillis(5));
+    };
+
+    for (int i = 0; i < 30; i++) {
+      // code here schedule the runnable with a job '.withName("ex11-{}", i)'
+
     }
+
+    // wait for all
+    Jobs.getJobManager().awaitFinished(
+        Jobs.newFutureFilterBuilder()
+            .andMatchNameRegex(Pattern.compile("ex11\\-[0-9]*"))
+            .toFilter(),
+        2, TimeUnit.MINUTES);
   }
 
   /**
@@ -222,25 +336,6 @@ public class JobExercises {
       Callable<String> dataLoader = newModelDataLoader();
       IBiConsumer<String, Throwable> updater = (String result, Throwable t) -> updateModel(result);
     }
-  }
-
-  @BeforeClass
-  public static void beforeClass() {
-    System.setProperty("jandex.rebuild", Boolean.toString(true));
-  }
-
-  @After
-  public void after() {
-    Jobs.getJobManager().awaitDone(null, 1, TimeUnit.MINUTES);
-    ISession.CURRENT.remove();
-  }
-
-  private void log(String label) {
-    String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
-
-    System.out.printf("[%s] %s [subject=%s]",
-        now, label, Subject.getSubject(AccessController.getContext()))
-        .println();
   }
 
   private Callable<String> newModelDataLoader() {
