@@ -1,4 +1,4 @@
-package org.eclipse.scout.contacts.edu.runcontext;
+package org.eclipse.scout.contacts.client.edu.runcontext;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -13,7 +13,7 @@ import java.util.Locale;
 
 import javax.security.auth.Subject;
 
-import org.eclipse.scout.contacts.edu.util.Helpers;
+import org.eclipse.scout.contacts.client.edu.EduUtility;
 import org.eclipse.scout.rt.platform.context.PropertyMap;
 import org.eclipse.scout.rt.platform.context.RunContext;
 import org.eclipse.scout.rt.platform.context.RunContexts;
@@ -29,7 +29,7 @@ import org.junit.Test;
  */
 public class RunContextExercises {
 
-  private static final Subject JOHN = Helpers.newSubject("john");
+  private static final Subject JOHN = EduUtility.newSubject("john");
 
   /**
    * TODO RunContext: Run the {@link Runnable} as 'JOHN' and with US Locale.
@@ -41,7 +41,8 @@ public class RunContextExercises {
       assertEquals(Locale.US, NlsLocale.CURRENT.get());
     };
 
-    // TODO
+    // write code here
+
   }
 
   /**
@@ -52,7 +53,7 @@ public class RunContextExercises {
     String prop = "message";
     IRunnable runnable = () -> assertEquals("Hello World", PropertyMap.CURRENT.get().get(prop));
 
-    // TODO
+    // write code here
   }
 
   /**
@@ -63,7 +64,7 @@ public class RunContextExercises {
     ThreadLocal<String> threadLocal = new ThreadLocal<String>();
     IRunnable runnable = () -> assertEquals("Hello World", threadLocal.get());
 
-    // TODO
+    // write code here
   }
 
   /**
@@ -77,7 +78,7 @@ public class RunContextExercises {
       assertNotNull(ITransaction.CURRENT.get());
       IRunnable runnable = () -> assertNotSame(currentTx, ITransaction.CURRENT.get());
 
-      // TODO
+      // write code here
     });
   }
 
@@ -91,7 +92,7 @@ public class RunContextExercises {
     when(txMember.needsCommit()).thenReturn(true);
     when(txMember.commitPhase1()).thenReturn(true);
 
-    // TODO
+    // write code here
 
     verify(txMember).commitPhase2();
   }
@@ -104,7 +105,7 @@ public class RunContextExercises {
     RunContexts.empty().run(() -> {
       RunMonitor.CURRENT.get().cancel(true);
 
-      // TODO
+      // write code here
     });
   }
 }

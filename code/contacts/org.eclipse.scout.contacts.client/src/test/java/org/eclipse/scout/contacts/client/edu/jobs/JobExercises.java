@@ -1,4 +1,4 @@
-package org.eclipse.scout.contacts.edu.jobs;
+package org.eclipse.scout.contacts.client.edu.jobs;
 
 import java.security.AccessController;
 import java.text.SimpleDateFormat;
@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.security.auth.Subject;
 
-import org.eclipse.scout.contacts.edu.util.Helpers;
+import org.eclipse.scout.contacts.client.edu.EduUtility;
 import org.eclipse.scout.rt.platform.context.RunContext;
 import org.eclipse.scout.rt.platform.context.RunContexts;
 import org.eclipse.scout.rt.platform.job.FixedDelayScheduleBuilder;
@@ -34,7 +34,7 @@ import org.quartz.SimpleScheduleBuilder;
  */
 public class JobExercises {
 
-  private static final Subject JOHN = Helpers.newSubject("john");
+  private static final Subject JOHN = EduUtility.newSubject("john");
 
   /**
    * This example may help to solve the following exercises.
@@ -165,7 +165,7 @@ public class JobExercises {
   }
 
   /**
-   * TODO Schedule a job which runs every 10 seconds from Monday to Friday.
+   * TODO Jobs: Schedule a job which runs every 10 seconds from Monday to Friday.
    * <p>
    * Hint: Use an execution trigger (Jobs.newExecutionTrigger())<br>
    * Hint: Use {@link CronScheduleBuilder} as schedule (static factory methods)<br>
@@ -177,7 +177,7 @@ public class JobExercises {
   }
 
   /**
-   * TODO Schedule a job which runs at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday.
+   * TODO Jobs: Schedule a job which runs at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday.
    * <p>
    * Hint: Use an execution trigger (Jobs.newExecutionTrigger())<br>
    * Hint: Use {@link CronScheduleBuilder} as schedule (static factory methods)<br>
