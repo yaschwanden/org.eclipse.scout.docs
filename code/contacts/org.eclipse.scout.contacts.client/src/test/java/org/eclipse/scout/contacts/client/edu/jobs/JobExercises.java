@@ -281,7 +281,7 @@ public class JobExercises {
   }
 
   /**
-   * TODO Schedule a job which runs every 10 seconds from Monday to Friday.
+   * TODO Jobs: Schedule a job which runs every 10 seconds from Monday to Friday.
    * <p>
    * Hint: Use an execution trigger (Jobs.newExecutionTrigger())<br>
    * Hint: Use {@link CronScheduleBuilder} as schedule (static factory methods)<br>
@@ -305,7 +305,7 @@ public class JobExercises {
   }
 
   /**
-   * TODO Schedule a job which runs at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday.
+   * TODO Jobs: Schedule a job which runs at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday.
    * <p>
    * Hint: Use an execution trigger (Jobs.newExecutionTrigger())<br>
    * Hint: Use {@link CronScheduleBuilder} as schedule (static factory methods)<br>
