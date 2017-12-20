@@ -54,9 +54,9 @@ jswidgets.ActionPropertiesBox.prototype._setField = function(field) {
   tooltipTextField.setValue(this.field.tooltipText);
   tooltipTextField.on('propertyChange', this._onPropertyChange.bind(this));
 
-  var horitonalAlignmentField = this.widget('HorizontalAlignmentField');
-  horitonalAlignmentField.setValue(this.field.horitonalAlignment);
-  horitonalAlignmentField.on('propertyChange', this._onPropertyChange.bind(this));
+  var horizontalAlignmentField = this.widget('HorizontalAlignmentField');
+  horizontalAlignmentField.setValue(this.field.horizontalAlignment);
+  horizontalAlignmentField.on('propertyChange', this._onPropertyChange.bind(this));
 };
 
 jswidgets.ActionPropertiesBox.prototype._onPropertyChange = function(event) {
@@ -73,5 +73,4 @@ jswidgets.ActionPropertiesBox.prototype._onPropertyChange = function(event) {
   } else if (event.propertyName === 'value' && event.source.id === 'HorizontalAlignmentField') {
     this.field.setHorizontalAlignment(event.newValue);
   }
-
 };

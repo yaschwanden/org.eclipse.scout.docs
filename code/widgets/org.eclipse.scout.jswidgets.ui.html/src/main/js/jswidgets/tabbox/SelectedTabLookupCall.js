@@ -19,5 +19,6 @@ jswidgets.SelectedTabLookupCall.prototype._data = function() {
 
 jswidgets.SelectedTabLookupCall.DATA = [
   ['TabItem1', 'First Tab'],
-  ['TabItem2', 'Second Tab']
+  ['TabItem2', 'Second Tab'],
+  ['TabItem3', 'Third Tab']
 ];

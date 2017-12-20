@@ -7,7 +7,7 @@ import org.eclipse.scout.rt.client.ui.action.menu.AbstractMenu;
 import org.eclipse.scout.rt.client.ui.action.menu.form.fields.AbstractFormFieldMenu;
 import org.eclipse.scout.rt.client.ui.form.AbstractForm;
 import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractCloseButton;
-import org.eclipse.scout.rt.client.ui.form.fields.datefield.AbstractDateTimeField;
+import org.eclipse.scout.rt.client.ui.form.fields.datefield.AbstractDateField;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
 import org.eclipse.scout.rt.client.ui.form.fields.smartfield.AbstractSmartField;
 import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
@@ -123,6 +123,19 @@ public class MenuBarForm extends AbstractForm implements IAdvancedExampleForm {
         }
       }
 
+      @Order(0)
+      @ClassId("6d7451e2-5771-4de9-8788-6efb9b7628ac")
+      public class BlubberMenu extends AbstractMenu {
+        @Override
+        protected String getConfiguredText() {
+          return "Blubber";
+        }
+
+        @Override
+        protected void execAction() {
+        }
+      }
+
       @Order(1000)
       @ClassId("da39efa2-8345-4dae-a6af-3b58e3a4c0d9")
       public class SmartFieldMenu extends AbstractFormFieldMenu {
@@ -182,7 +195,7 @@ public class MenuBarForm extends AbstractForm implements IAdvancedExampleForm {
       public class DateFieldMenu extends AbstractFormFieldMenu {
 
         @Order(1000)
-        public class MenuDateField extends AbstractDateTimeField {
+        public class MenuDateField extends AbstractDateField {
           private SimpleDateFormat m_dateFormatter = new SimpleDateFormat("MM-dd-yyyy hh:mm");
 
           @Override
