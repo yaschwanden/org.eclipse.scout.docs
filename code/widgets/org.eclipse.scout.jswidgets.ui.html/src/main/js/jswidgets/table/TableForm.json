@@ -130,6 +130,12 @@
                 }
               ]
             }
+          },
+          {
+            "id": "OpenDialog",
+            "objectType": "Button",
+            "label": "Open dialog",
+            "processButton": false
           }
         ]
       },

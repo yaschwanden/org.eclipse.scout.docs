@@ -1,0 +1,51 @@
+{
+  "id": "jswidgets.AhoEditableTableForm",
+  "type": "model",
+  "displayHint": "view",
+  "rootGroupBox": {
+    "id": "MainBox",
+    "objectType": "GroupBox",
+    "fields": [
+      {
+        "id": "TableField",
+        "objectType": "TableField",
+        "labelVisible": false,
+        "gridDataHints": {
+          "h": 6
+        },
+        "table": {
+          "id": "Table",
+          "objectType": "Table",
+          "columns": [
+            {
+              "id": "StringColumn",
+              "objectType": "Column",
+              "text": "String Column",
+              "width": 120,
+              "editable": true
+            },
+            {
+              "id": "SmartColumn",
+              "objectType": "SmartColumn",
+              "text": "Smart Column",
+              "lookupCall": "jswidgets.LocaleLookupCall",
+              "width": 120,
+              "editable": true
+            }
+          ],
+          "menus": [
+            {
+              "id": "AddRowMenu",
+              "objectType": "Menu",
+              "text": "${textKey:AddRow}",
+              "menuTypes": [
+                "Table.EmptySpace"
+              ],
+              "keyStroke": "insert"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

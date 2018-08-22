@@ -47,6 +47,7 @@
     "jswidgets/tabbox/TabBoxForm.json",
     "jswidgets/tabbox/TabItemProperties.json",
     "jswidgets/table/TableForm.json",
+    "jswidgets/table/editable/test/AhoEditableTableForm.json",
     "jswidgets/table/TablePropertiesBox.json",
     "jswidgets/table/ColumnPropertiesBox.json",
     "jswidgets/table/hierarchical/HierarchicalTableForm.json",

@@ -38,7 +38,20 @@ jswidgets.TableForm.prototype._init = function(model) {
   this.widget('GridDataBox').setField(this.widget('TableField'));
   this.widget('WidgetActionsBox').setField(this.widget('TableField'));
   this.widget('EventsTab').setField(this.table);
+  this.widget('EventLogField').computeRequiresSave = function(){
+    return false;
+  };
 
+  this.widget('OpenDialog').on('click',function(){
+    var form = scout.create('jswidgets.AhoEditableTableForm', {
+      parent: this,
+      session: this.session,
+      displayHint: 'dialog',
+      modal: true,
+      closable: true
+    });
+    form.open();
+  }.bind(this));
   var targetField = this.widget('Column.TargetField');
   targetField.setLookupCall(new jswidgets.ColumnLookupCall(this.table));
   targetField.setValue(this.table.columns[0]);
