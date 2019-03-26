@@ -11,8 +11,6 @@ import org.eclipse.scout.rt.platform.ApplicationScoped;
 
 /**
  * <h3>{@link TimerNotificationHelper}</h3>
- *
- * @author aho
  */
 @ApplicationScoped
 public class TimerNotificationHelper {

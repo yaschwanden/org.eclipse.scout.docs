@@ -6,8 +6,6 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * <h3>{@link TimeNotification}</h3>
- *
- * @author aho
  */
 public class TimeNotification implements Serializable {
   private static final long serialVersionUID = 1L;

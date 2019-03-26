@@ -4,8 +4,6 @@ import org.eclipse.scout.rt.platform.ApplicationScoped;
 
 /**
  * <h3>{@link ILamp}</h3>
- *
- * @author aho
  */
 @LoggedBean
 @ApplicationScoped

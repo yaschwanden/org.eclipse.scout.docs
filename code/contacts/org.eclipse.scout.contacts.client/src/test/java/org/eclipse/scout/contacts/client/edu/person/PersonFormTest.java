@@ -17,7 +17,7 @@ import org.mockito.ArgumentMatchers;
  * Tests for
  * <h3>{@link PersonForm}</h3>
  * <p>
- * TODO Testing 2.1 Testing: Add testing annotations
+ * TODO 6.03 Testing: Add testing annotations
  */
 public class PersonFormTest {
 
@@ -47,7 +47,7 @@ public class PersonFormTest {
   }
 
   /**
-   * TODO Testing 2.2: create a test check if the validation on the {@link DateOfBirthField} fails in case of a date in
+   * TODO 6.04 Testing: create a test check if the validation on the {@link DateOfBirthField} fails in case of a date in
    * future.
    */
   @Test

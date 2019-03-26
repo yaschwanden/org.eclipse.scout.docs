@@ -70,7 +70,7 @@ public class JobExercises {
   }
 
   /**
-   * TODO Jobs: Schedule a job that runs once
+   * TODO 3.01 Jobs: Schedule a job that runs once
    *
    * @throws Exception
    */
@@ -78,12 +78,16 @@ public class JobExercises {
   public void exercise_1() throws Exception {
     Logger logger = Mockito.spy(new Logger());
 
-    IRunnable runnable = () -> logger.log("exercise_1");
+    IRunnable r = () -> logger.log("exercise_1");
+    // your code here
 
+    // assertions
+    waitForAllJobs();
+    Mockito.verify(logger, Mockito.times(1)).log(Mockito.anyString());
   }
 
   /**
-   * TODO Jobs: Schedule a job that runs once, and wait for the job to complete
+   * TODO 3.02 Jobs: Schedule a job that runs once, and wait for the job to complete
    */
   @Test
   public void exercise_2() {
@@ -97,8 +101,8 @@ public class JobExercises {
   }
 
   /**
-   * TODO Jobs: Schedule a job that runs once, and which returns a result to the submitter. Then, print the result to
-   * the console.
+   * TODO 3.03 Jobs: Schedule a job that runs once, and which returns a result to the submitter. Then, print the result
+   * to the console.
    */
   @Test
   public void exercise_3() {
@@ -116,7 +120,7 @@ public class JobExercises {
   }
 
   /**
-   * TODO Jobs: Schedule 2 jobs and wait for their completion.
+   * TODO 3.04 Jobs: Schedule 2 jobs and wait for their completion.
    * <p>
    * Hint: Mark the jobs with an execution hint and wait for all jobs that comply with that hint.
    */
@@ -133,7 +137,7 @@ public class JobExercises {
   }
 
   /**
-   * TODO Jobs: Schedule a job that runs as JOHN with a 'US Locale' and wait for completion.
+   * TODO 3.05 Jobs: Schedule a job that runs as JOHN with a 'US Locale' and wait for completion.
    * <p>
    * Hint: Use the Subject JOHN as declared by this class.
    */
@@ -158,7 +162,7 @@ public class JobExercises {
   }
 
   /**
-   * TODO Jobs: Schedule 3 jobs and let the jobs execute in sequence in the order as scheduled.
+   * TODO 3.06 Jobs: Schedule 3 jobs and let the jobs execute in sequence in the order as scheduled.
    * <p>
    * Hint: Use an execution semaphore (Jobs.newExecutionSemaphore()) to achieve mutual exclusion.
    */
@@ -205,7 +209,7 @@ public class JobExercises {
   }
 
   /**
-   * TODO Jobs: Schedule a repetitive job which starts in 3 seconds and runs 4 times (total) at every two second.
+   * TODO 3.07 Jobs: Schedule a repetitive job which starts in 3 seconds and runs 4 times (total) at every two second.
    * <p>
    * Hint: Use an execution trigger (Jobs.newExecutionTrigger())<br>
    * Hint: Use {@link SimpleScheduleBuilder} as schedule (static factory methods)<br>
@@ -228,8 +232,8 @@ public class JobExercises {
   }
 
   /**
-   * TODO Jobs: Schedule a repetitive job which starts in 3 seconds and runs 5 times with a fixed delay of 2 seconds
-   * between executions.
+   * TODO 3.08 Jobs: Schedule a repetitive job which starts in 3 seconds and runs 5 times with a fixed delay of 2
+   * seconds between executions.
    * <p>
    * Hint: Use an execution trigger (Jobs.newExecutionTrigger())<br>
    * Hint: Use {@link FixedDelayScheduleBuilder} as schedule (static factory methods)<br>
@@ -252,7 +256,7 @@ public class JobExercises {
   }
 
   /**
-   * TODO Jobs: Schedule a job which runs every 10 seconds from Monday to Friday.
+   * TODO 3.09 Jobs: Schedule a job which runs every 10 seconds from Monday to Friday.
    * <p>
    * Hint: Use an execution trigger (Jobs.newExecutionTrigger())<br>
    * Hint: Use {@link CronScheduleBuilder} as schedule (static factory methods)<br>
@@ -273,7 +277,7 @@ public class JobExercises {
   }
 
   /**
-   * TODO Jobs: Schedule a job which runs at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday.
+   * TODO 3.10 Jobs: Schedule a job which runs at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday.
    * <p>
    * Hint: Use an execution trigger (Jobs.newExecutionTrigger())<br>
    * Hint: Use {@link CronScheduleBuilder} as schedule (static factory methods)<br>
@@ -291,7 +295,7 @@ public class JobExercises {
   }
 
   /**
-   * TODO Jobs: Limit the maximal concurrency level to 5 concurrently executing jobs.
+   * TODO 3.11 Jobs: Limit the maximal concurrency level to 5 concurrently executing jobs.
    */
   @Test
   public void exercise_11() {
@@ -318,7 +322,7 @@ public class JobExercises {
   }
 
   /**
-   * TODO Jobs: In this example there are 10 jobs which load model data concurrently.
+   * TODO 3.12 Jobs: In this example there are 10 jobs which load model data concurrently.
    * <p>
    * Your task is to update the model via 'updateModel' method. But, access to the model is limited to a single writing
    * thread.
@@ -360,5 +364,9 @@ public class JobExercises {
     finally {
       m_modelAccessCount.decrementAndGet();
     }
+  }
+
+  private void waitForAllJobs() {
+    Jobs.getJobManager().getFutures(f -> true).forEach(f -> f.awaitDone());
   }
 }

@@ -11,8 +11,6 @@ import org.eclipse.scout.rt.platform.Order;
 
 /**
  * <h3>{@link TimerNotificationForm}</h3>
- *
- * @author aho
  */
 public class TimerNotificationForm extends AbstractForm {
   /**

@@ -4,8 +4,6 @@ import org.eclipse.scout.rt.platform.Bean;
 
 /**
  * <h3>{@link IFish}</h3>
- *
- * @author aho
  */
 @Bean
 public interface IFish {

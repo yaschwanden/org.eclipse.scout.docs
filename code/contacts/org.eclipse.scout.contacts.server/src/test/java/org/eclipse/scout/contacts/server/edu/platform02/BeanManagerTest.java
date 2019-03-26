@@ -44,7 +44,7 @@ public class BeanManagerTest {
    * <p>
    * By default, all classes annotated with {@link Bean} are automatically registered.
    * </p>
-   * TODO Platform 2.1: provide the {@link IFurniture} to the bean context.
+   * TODO 1.02 Platform: provide the {@link IFurniture} to the bean context.
    */
   @Test
   public void getBean() {
@@ -56,7 +56,7 @@ public class BeanManagerTest {
    * By default, a new instance is created every time {@link BEANS#get(Class)} is called. You can create a singleton by
    * using the annotation {@link ApplicationScoped}
    * <p>
-   * TODO Platform 2.2: ensure {@link Chair} has singleton character.
+   * TODO 1.03 Platform: ensure {@link Chair} has singleton character.
    */
   @Test
   public void getBeanSingleton() {
@@ -67,7 +67,7 @@ public class BeanManagerTest {
   /**
    * Bean lookup also works with an interface, which is usually the preferred way.
    * <p>
-   * TODO Platform 2.3: fix the second argument assertion.
+   * TODO 1.04 Platform: fix the second argument assertion.
    */
   @Test
   public void lookupByInterface() {
@@ -79,19 +79,19 @@ public class BeanManagerTest {
    * If there are multiple instances available in a hierarchy, querying a specific class with {@link BEANS#get(Class)}
    * always returns an instance of that class.
    * <p>
-   * TODO Platform 2.4: fix the bean lookup. Use a specific class.
+   * TODO 1.05 Platform: fix the bean lookup. Use a specific class.
    */
   @Test
   public void multipleInstancesByClass() {
-    IFurniture a = BEANS.get(IFurniture.class);
-    assertThat(a, instanceOf(Chair.class));
+    IFurniture bean = BEANS.get(IFurniture.class);
+    assertThat(bean, instanceOf(Chair.class));
   }
 
   /**
    * Querying by interface with {@link BEANS#get(Class)} is supposed to always find exactly one instance. Otherwise, an
    * exception will be thrown.
    * <p>
-   * TODO Platform 2.5: fix the test below.
+   * TODO 1.06 Platform: fix the test below, by providing the correct expected exception.
    */
   @Test(expected = NullPointerException.class)
   public void multipleInstancesByInterface() {
@@ -103,15 +103,10 @@ public class BeanManagerTest {
    * there are several beans registered with the same order (or none) under the query an {@link AssertionException} is
    * thrown.
    * <p>
-<<<<<<< features/course_neon_upgrade_6_1
-   * TODO Platform 2.6: fix bean lookup
-=======
-   * TODO Platform 2.6: fix the bean lookup
->>>>>>> 918866b removed old fixme and todos
+   * TODO 1.07 Platform: fix the bean lookup.
    */
   @Test
   public void optionalGet() {
     assertThat(BEANS.get(INonExistingBean.class), nullValue());
   }
-
 }

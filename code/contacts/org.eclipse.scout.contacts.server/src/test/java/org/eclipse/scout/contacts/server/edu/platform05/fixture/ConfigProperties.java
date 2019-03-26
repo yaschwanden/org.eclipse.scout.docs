@@ -4,8 +4,6 @@ import org.eclipse.scout.rt.platform.config.AbstractPositiveLongConfigProperty;
 
 /**
  * <h3>{@link ConfigProperties}</h3>
- *
- * @author aho
  */
 public final class ConfigProperties {
 
@@ -13,7 +11,7 @@ public final class ConfigProperties {
 
     @Override
     public String getKey() {
-      return "contacts_max_lines"; // fix to match the key used in the property
+      return "contacts.max.lines"; // fix to match the key used in the property
     }
 
     @Override
@@ -26,5 +24,7 @@ public final class ConfigProperties {
       return "Education max lines property.";
     }
   }
+
+  // Birthday property here
 
 }

@@ -2,8 +2,6 @@ package org.eclipse.scout.contacts.server.edu.platform06.fixture;
 
 /**
  * <h3>{@link TableLamp}</h3>
- *
- * @author aho
  */
 public class TableLamp implements ILamp {
 

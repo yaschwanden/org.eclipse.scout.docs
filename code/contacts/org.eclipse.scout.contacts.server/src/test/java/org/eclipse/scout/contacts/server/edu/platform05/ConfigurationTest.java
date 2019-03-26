@@ -20,7 +20,7 @@ import org.junit.Test;
 public class ConfigurationTest {
 
   /**
-   * TODO Platform 6.1 Configuration: Ensure the class {@link MaxLinesConfigProperty} uses the value of the
+   * TODO 1.12 Platform Configuration: Ensure the class {@link MaxLinesConfigProperty} uses the value of the
    * config.properties file and correct the value in the properties file to fulfill the validation constraints.
    */
   @Test
@@ -30,8 +30,8 @@ public class ConfigurationTest {
   }
 
   /**
-   * TODO Platform 5.2: Create the inner class BirthdayProperty in {@link ConfigProperties}. This property parses a
-   * {@link LocalDate} out of the existing config property. <br>
+   * TODO 1.13 Platform Configuration: Create the inner class BirthdayProperty in {@link ConfigProperties}. This
+   * property parses a {@link LocalDate} out of the existing config property. <br>
    * Hint: use {@link LocalDate#parse(CharSequence, DateTimeFormatter)} and {@link DateTimeFormatter#ofPattern(String)}
    * with the pattern 'dd.MM.yyyy'.
    */

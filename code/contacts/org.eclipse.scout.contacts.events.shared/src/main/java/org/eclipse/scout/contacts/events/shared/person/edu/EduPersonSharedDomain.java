@@ -30,6 +30,6 @@ public class EduPersonSharedDomain implements IPlatformListener {
   }
 
   protected void initializeExtensions(IExtensionRegistry registry) {
-    // TODO Extensibility 1.2: register data extensions
+    // TODO 5.03 Extensibility: register data extensions
   }
 }

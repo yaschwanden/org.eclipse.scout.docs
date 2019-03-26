@@ -18,7 +18,7 @@ import org.junit.Test;
  * Tests for
  * <h3>{@link PersonService}</h3>
  * <p>
- * TODO Testing 1.1: add annotations
+ * TODO 6.01 Testing: add annotations
  */
 public class PersonServiceTest {
   private PersonFormData testPersonData = new PersonFormData();
@@ -50,6 +50,6 @@ public class PersonServiceTest {
     assertNotNull(createdPerson.getPersonId());
   }
 
-  //TODO Testing 1.2 Testing: Add Tests for other PersonService methods
+  //TODO 6.02 Testing: Add Tests for other PersonService methods
 
 }

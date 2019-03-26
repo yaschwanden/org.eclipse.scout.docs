@@ -19,8 +19,6 @@ import org.eclipse.scout.rt.platform.util.concurrent.IRunnable;
 
 /**
  * <h3>{@link EduUtility}</h3>
- *
- * @author aho
  */
 public final class EduUtility {
   private EduUtility() {
@@ -37,7 +35,7 @@ public final class EduUtility {
   }
 
   /**
-   * schedule a job and keep it for 20 secons running. Used for chron job tests.
+   * schedule a job and keep it for 20 seconds running. Used for chron job tests.
    *
    * @param runnable
    * @param input

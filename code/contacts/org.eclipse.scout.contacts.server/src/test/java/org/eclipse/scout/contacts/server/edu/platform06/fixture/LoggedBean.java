@@ -10,8 +10,6 @@ import org.eclipse.scout.rt.platform.ApplicationScoped;
 
 /**
  * <h3>{@link LoggedBean}</h3>
- *
- * @author aho
  */
 @ApplicationScoped
 @Target({java.lang.annotation.ElementType.TYPE, java.lang.annotation.ElementType.METHOD,

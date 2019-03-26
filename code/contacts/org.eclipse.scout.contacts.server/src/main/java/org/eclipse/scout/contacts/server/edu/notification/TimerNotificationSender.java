@@ -13,8 +13,6 @@ import org.quartz.SimpleScheduleBuilder;
 
 /**
  * <h3>{@link TimerNotificationSender}</h3>
- *
- * @author aho
  */
 @ApplicationScoped
 @CreateImmediately
@@ -22,7 +20,6 @@ public class TimerNotificationSender {
 
   @PostConstruct
   public void setup() {
-    System.out.println("setup");
     Jobs.schedule(() -> {
       sendDateToAllSessions();
     }, Jobs.newInput()
@@ -34,7 +31,7 @@ public class TimerNotificationSender {
   }
 
   /**
-   * TODO Client notification 1.1: Publish a new {@link TimeNotification} to all sessions.<br>
+   * TODO 4.02 Client notification: Publish a new {@link TimeNotification} to all sessions.<br>
    * Hint: use the {@link ClientNotificationRegistry} bean.
    */
   private void sendDateToAllSessions() {

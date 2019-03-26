@@ -25,13 +25,14 @@ public class ReplacingBeansTest {
    * A bean can be replaced, by using the annotation {@link Replace}. A bean annotated with replace replaces its
    * superclass.
    * <p>
-   * TODO Platform 3.1: Fix the test without changing {@link IWaveService} or {@link WaveService}. <br>
+   * TODO 1.08 Platform: Fix the test without changing {@link IWaveService} or {@link WaveService}. <br>
    * Hint: create the WaveAndWindService.
    */
   @Test
   public void replaceBean() {
     assertThat(BEANS.get(IWaveService.class).getClass().getSimpleName(), is("WaveAndWindService"));
     assertThat(BEANS.get(WaveService.class).getClass().getSimpleName(), is("WaveAndWindService"));
+    assertThat(BEANS.all(IWaveService.class).size(), is(1));
   }
 
 }

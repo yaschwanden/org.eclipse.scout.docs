@@ -30,7 +30,7 @@ public class TimerNotificationHandlerTest {
   }
 
   /**
-   * TODO Client notification 4.1: publish a new notification and expect the date will be shown in the
+   * TODO 4.04 Client notification: publish a new notification and expect the date will be shown in the
    * {@link MessageTimeField}.<br>
    * Hint: use the {@link TimerNotificationHandler} to publish.
    */

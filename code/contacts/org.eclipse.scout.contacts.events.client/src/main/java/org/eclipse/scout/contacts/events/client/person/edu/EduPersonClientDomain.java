@@ -31,9 +31,9 @@ public class EduPersonClientDomain implements IPlatformListener {
 
   protected void initializeExtensions(IExtensionRegistry registry) {
     // model extensions
-    // TODO Extensibility 1.1: register form extension
+    // TODO 5.01 Extensibility: register form extension
 
     // move field
-    // TODO Extensibility 2: register move
+    // TODO 5.02 Extensibility: register move
   }
 }

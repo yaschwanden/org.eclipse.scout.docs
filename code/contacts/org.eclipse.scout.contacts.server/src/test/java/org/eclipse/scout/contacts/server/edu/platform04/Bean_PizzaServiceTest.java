@@ -25,7 +25,7 @@ public class Bean_PizzaServiceTest {
    * {@link BEANS#all(Class)} finds all instances of an interface (except replaced classes). <br>
    * This is useful for resource providers such as image and text services.
    * <p>
-   * TODO Platform 4.1: Create a FunghiPizzaService
+   * TODO 1.09 Platform: Create a FunghiPizzaService
    */
   @Test
   public void createFunghiPizzaService() {
@@ -37,11 +37,10 @@ public class Bean_PizzaServiceTest {
   /**
    * Replaced instances are not found with BEANS.
    * <p>
-   * TODO Platform 4.2: Replace the {@link ProsciuttoPizzaService} with a HawaiiPizzaService
+   * TODO 1.10 Platform: Replace the {@link ProsciuttoPizzaService} with a HawaiiPizzaService
    */
   @Test
   public void replaceProciuttoService() {
-
     List<String> serviceNames = BEANS.all(IPizzaService.class).stream().map(service -> service.getClass().getSimpleName()).collect(Collectors.toList());
     assertThat(serviceNames, hasSize(3));
     assertThat(serviceNames, not(hasItem(ProsciuttoPizzaService.class.getSimpleName())));
@@ -51,7 +50,7 @@ public class Bean_PizzaServiceTest {
   /**
    * All Beans: Beans are ordered with {@link Order} annotation.
    * <p>
-   * TODO Platform 4.3 bring the beans in the required order. Do not touch orders of {@link MargaritaPizzaService} and
+   * TODO 1.11 Platform bring the beans in the required order. Do not touch orders of {@link MargaritaPizzaService} and
    * {@link ProsciuttoPizzaService}.
    */
   @Test

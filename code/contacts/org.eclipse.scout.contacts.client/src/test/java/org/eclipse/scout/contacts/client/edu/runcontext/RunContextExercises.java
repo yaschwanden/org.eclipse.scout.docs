@@ -16,6 +16,7 @@ import java.util.Locale;
 import javax.security.auth.Subject;
 
 import org.eclipse.scout.contacts.client.edu.EduUtility;
+import org.eclipse.scout.rt.platform.ApplicationScoped;
 import org.eclipse.scout.rt.platform.context.PropertyMap;
 import org.eclipse.scout.rt.platform.context.RunContext;
 import org.eclipse.scout.rt.platform.context.RunContexts;
@@ -37,7 +38,7 @@ public class RunContextExercises {
   private static final Subject JOHN = EduUtility.newSubject("john");
 
   /**
-   * TODO RunContext: Run the {@link Runnable} as 'JOHN' and with US Locale.
+   * TODO 2.01 RunContext: Run the {@link Runnable} as 'JOHN' and with US Locale.
    */
   @Test
   public void exercise_1() {
@@ -46,34 +47,37 @@ public class RunContextExercises {
       assertEquals(Locale.US, NlsLocale.CURRENT.get());
     };
 
-    // write code here
+    RunContexts.empty()
+        .run(runnable);
 
   }
 
   /**
-   * TODO RunContext: Run the {@link Runnable} with the property 'message' set to 'Hello World'.
+   * TODO 2.02 RunContext: Run the {@link Runnable} with the property 'message' set to 'Hello World'.
    */
   @Test
   public void exercise_2() {
-    String prop = "message";
-    IRunnable runnable = () -> assertEquals("Hello World", PropertyMap.CURRENT.get().get(prop));
+    String PROPERTY_NAME = "message";
+    IRunnable runnable = () -> assertEquals("Hello World", PropertyMap.CURRENT.get().get(PROPERTY_NAME));
 
-    // write code here
+    RunContexts.empty()
+        .run(runnable);
   }
 
   /**
-   * TODO RunContext: Run the {@link Runnable} with the {@link ThreadLocal} set to 'Hello World'.
+   * TODO 2.03 RunContext: Run the {@link Runnable} with the {@link ThreadLocal} set to 'Hello World'.
    */
   @Test
   public void exercise_3() {
     ThreadLocal<String> threadLocal = new ThreadLocal<String>();
     IRunnable runnable = () -> assertEquals("Hello World", threadLocal.get());
 
-    // write code here
+    RunContexts.empty()
+        .run(runnable);
   }
 
   /**
-   * TODO RunContext: Run the {@link Runnable} in a new transaction.
+   * TODO 2.04 RunContext: Run the {@link Runnable} in a new transaction.
    */
   @Test
   public void exercise_4() {
@@ -83,12 +87,14 @@ public class RunContextExercises {
       assertNotNull(ITransaction.CURRENT.get());
       IRunnable runnable = () -> assertNotSame(currentTx, ITransaction.CURRENT.get());
 
-      // write code here
+      RunContexts.empty()
+          // add your code here
+          .run(runnable);
     });
   }
 
   /**
-   * TODO RunContext: Run the {@link Runnable} with the TX-Member installed.
+   * TODO 2.05 RunContext: Run the {@link Runnable} with the TX-Member installed.
    */
   @Test
   public void exercise_5() {
@@ -97,13 +103,16 @@ public class RunContextExercises {
     when(txMember.needsCommit()).thenReturn(true);
     when(txMember.commitPhase1()).thenReturn(true);
 
-    // write code here
+    RunContexts.empty()
+        // add code here
+        .run(() -> {
+        });
 
     verify(txMember).commitPhase2();
   }
 
   /**
-   * TODO RunContext: Run the {@link Runnable} with a attached {@link RunMonitor} so that execution is cancelled.
+   * TODO 2.06 RunContext: Run the {@link Runnable} with a attached {@link RunMonitor} so that execution is cancelled.
    */
   @Test
   public void exercise_6() {
@@ -111,12 +120,16 @@ public class RunContextExercises {
       RunMonitor.CURRENT.get().cancel(false);
 
       IRunnable runnable = () -> assertTrue(RunMonitor.CURRENT.get().isCancelled());
-      // write code here
+      RunContexts.empty()
+          // write code here
+          .run(runnable);
     });
   }
 
   /**
-   * TODO RunContext: Run the {@link Runnable} with a detached {@link RunMonitor} so that execution is not cancelled.
+   * TODO 2.07 RunContext: Run the {@link Runnable} with a detached {@link RunMonitor} so that execution is not
+   * cancelled.<br>
+   * Hint: {@link RunMonitor} is a non {@link ApplicationScoped} bean.
    */
   @Test
   public void exercise_7() {
@@ -124,7 +137,10 @@ public class RunContextExercises {
       RunMonitor.CURRENT.get().cancel(false);
 
       IRunnable runnable = () -> assertFalse(RunMonitor.CURRENT.get().isCancelled());
-      // write code here
+
+      RunContexts.copyCurrent()
+          // your code here
+          .run(runnable);
     });
   }
 }

@@ -33,7 +33,7 @@ public class ClassInventoryTest {
    * Browsing the ClassInventory It is possible to find all subclasses with
    * {@link IClassInventory#getAllKnownSubClasses(Class)}
    * <p>
-   * TODO Platform 1.1: fix test.
+   * TODO 1.00 Platform: fix test.
    */
   @Test
   public void testFindKnownSubclasses() {
@@ -44,10 +44,9 @@ public class ClassInventoryTest {
   }
 
   /**
-   * The ClassInventory only collects classes in projects with a resource called META-INF/scout.xml. <br>
-   * See what happens, if you delete the scout.xml file.
+   * Collecting all classes with a specific annotation using {@link IClassInventory#getKnownAnnotatedTypes(Class)}.
    * <p>
-   * TODO Platform 1.2: Fix test. Hint: add a {@link Beer} annotation.<br>
+   * TODO 1.01 Platform: Fix test. Hint: add a {@link Beer} annotation.<br>
    */
   @Test
   public void testFindAnnotations() {

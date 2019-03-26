@@ -22,7 +22,7 @@ public class EduPersonService extends PersonServiceExtension {
 
   @Override
   public PersonFormData store(PersonFormData formData) {
-    // TODO Extensibility 1.3: Log contents of P.O. Box field
+    // TODO 5.07 Extensibility: Log contents of P.O. Box field
     return super.store(formData);
   }
 }

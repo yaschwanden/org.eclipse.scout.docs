@@ -11,12 +11,12 @@
 package org.eclipse.scout.contacts.events.client.person.edu;
 
 /*
- * TODO Extensibility 1.2: uncomment extended class declaration, fix compile errors and add field
+ * TODO 5.04 Extensibility: uncomment extended class declaration, fix compile errors and add field
  *                         user TEXTS.get("POBox"); for its label
  *
- * TODO Extensibility 1.3: annotate class so that an extension data is created
+ * TODO 5.05 Extensibility: annotate class so that an extension data is created
  *
- * TODO Extensibility 3: set DateOfBirthField invisible
+ * TODO 5.06 Extensibility: set DateOfBirthField invisible
  */
 public class EduPersonFormExtension /* extends AbstractFormExtension<PersonForm> */ {
 }

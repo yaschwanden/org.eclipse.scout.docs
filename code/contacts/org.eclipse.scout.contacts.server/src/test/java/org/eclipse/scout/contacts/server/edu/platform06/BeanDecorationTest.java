@@ -13,8 +13,6 @@ import org.junit.Test;
 
 /**
  * <h3>{@link BeanDecorationTest}</h3>
- *
- * @author aho
  */
 public class BeanDecorationTest {
 
@@ -24,7 +22,7 @@ public class BeanDecorationTest {
   }
 
   /**
-   * TODO Platform 6.1: fix the assertions. And understand how decorations work.
+   * TODO 1.14 Platform: fix the assertions. And understand how decorations work.
    */
   @Test
   public void decorateBean() {
@@ -45,7 +43,7 @@ public class BeanDecorationTest {
   /**
    * Decorations works only for {@link ApplicationScoped} beans looked up via an interface.
    * <p>
-   * TODO Platform 6.2: fix the assertions.
+   * TODO 1.15 Platform: fix the assertions.
    */
   @Test
   public void tryDecorateInstance() {

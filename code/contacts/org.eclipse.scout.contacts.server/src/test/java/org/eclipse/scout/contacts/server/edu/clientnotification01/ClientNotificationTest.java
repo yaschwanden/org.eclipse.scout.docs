@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -24,20 +25,23 @@ import org.junit.Test;
  */
 public class ClientNotificationTest {
 
+  private TestNotification m_notification01 = new TestNotification(1);
+  private TestNotification m_notification02 = new TestNotification(2);
+  private TestNotification m_notification03 = new TestNotification(3);
+
   /**
-   * TODO Client notification 3.1: fix assertions
+   * TODO 4.01 Client notification : fix assertions
    */
   @Test
   public void test() {
     BEANS.get(IClientNotificationService.class).registerSession("testNodeId", "testSessionId", "testUserId");
     IExecutionSemaphore exSemaphore = Jobs.newExecutionSemaphore(1);
-    TestNotification notification = new TestNotification(1);
 
     IFuture<Void> putNotificationFeature = Jobs.schedule(() -> {
       ClientNotificationRegistry clientNotificationRegistry = BEANS.get(ClientNotificationRegistry.class);
-      clientNotificationRegistry.putForAllSessions(notification);
-      clientNotificationRegistry.putForSession("anOtherSession", new TestNotification(2));
-      clientNotificationRegistry.putForSession("testSessionId", new TestNotification(3));
+      clientNotificationRegistry.putForAllSessions(m_notification01);
+      clientNotificationRegistry.putForSession("anOtherSession", m_notification02);
+      clientNotificationRegistry.putForSession("testSessionId", m_notification03);
     }, Jobs.newInput().withRunContext(RunContexts.empty()).withExecutionSemaphore(exSemaphore));
 
     IFuture<List<TestNotification>> consumeFeature = Jobs.schedule(() -> {
@@ -48,8 +52,8 @@ public class ClientNotificationTest {
     List<TestNotification> receivedNotifications = consumeFeature.awaitDoneAndGet(2, TimeUnit.SECONDS);
 
     // assertions
-    assertThat(receivedNotifications, hasSize(-1));
-    Assert.assertEquals(notification, receivedNotifications.get(-1));
+    assertThat(receivedNotifications, hasSize(2));
+    Assert.assertEquals(receivedNotifications, Arrays.asList());
 
     // appendix
     // wait for all jobs to complete
