@@ -37,7 +37,8 @@ public class Bean_PizzaServiceTest {
   /**
    * Replaced instances are not found with BEANS.
    * <p>
-   * TODO 1.10 Platform: Replace the {@link ProsciuttoPizzaService} with a HawaiiPizzaService
+   * TODO 1.10 Platform: Replace the {@link ProsciuttoPizzaService} with a HawaiiPizzaService, do not change any
+   * assertions.
    */
   @Test
   public void replaceProciuttoService() {

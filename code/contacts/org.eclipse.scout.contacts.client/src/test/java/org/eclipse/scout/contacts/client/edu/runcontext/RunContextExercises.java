@@ -24,6 +24,7 @@ import org.eclipse.scout.rt.platform.context.RunMonitor;
 import org.eclipse.scout.rt.platform.nls.NlsLocale;
 import org.eclipse.scout.rt.platform.transaction.ITransaction;
 import org.eclipse.scout.rt.platform.transaction.ITransactionMember;
+import org.eclipse.scout.rt.platform.transaction.TransactionScope;
 import org.eclipse.scout.rt.platform.util.concurrent.IRunnable;
 import org.eclipse.scout.rt.testing.platform.runner.PlatformTestRunner;
 import org.junit.Test;
@@ -48,6 +49,8 @@ public class RunContextExercises {
     };
 
     RunContexts.empty()
+        .withSubject(JOHN)
+        .withLocale(Locale.US)
         .run(runnable);
 
   }
@@ -61,6 +64,7 @@ public class RunContextExercises {
     IRunnable runnable = () -> assertEquals("Hello World", PropertyMap.CURRENT.get().get(PROPERTY_NAME));
 
     RunContexts.empty()
+        .withProperty(PROPERTY_NAME, "Hello World")
         .run(runnable);
   }
 
@@ -73,6 +77,7 @@ public class RunContextExercises {
     IRunnable runnable = () -> assertEquals("Hello World", threadLocal.get());
 
     RunContexts.empty()
+        .withThreadLocal(threadLocal, "Hello World")
         .run(runnable);
   }
 

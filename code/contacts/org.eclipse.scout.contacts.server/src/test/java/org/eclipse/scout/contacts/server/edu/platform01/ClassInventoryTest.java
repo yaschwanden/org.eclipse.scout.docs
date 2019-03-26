@@ -39,7 +39,7 @@ public class ClassInventoryTest {
   public void testFindKnownSubclasses() {
     Set<IClassInfo> subClassInfo = ClassInventory.get().getAllKnownSubClasses(IBeerBean.class);
     assertThat(subClassInfo, hasSize(1));
-    Class<?> expectedSubClass = Object.class; // provide the correct class
+    Class<?> expectedSubClass = CoronaBean.class; // provide the correct class
     assertThat(subClassInfo, hasEntryMatching(e -> e.name().equals(expectedSubClass.getName())));
   }
 

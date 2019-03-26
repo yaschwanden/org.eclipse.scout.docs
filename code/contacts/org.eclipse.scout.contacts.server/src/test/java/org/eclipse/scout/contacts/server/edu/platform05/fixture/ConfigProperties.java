@@ -1,5 +1,9 @@
 package org.eclipse.scout.contacts.server.edu.platform05.fixture;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import org.eclipse.scout.rt.platform.config.AbstractConfigProperty;
 import org.eclipse.scout.rt.platform.config.AbstractPositiveLongConfigProperty;
 
 /**
@@ -26,5 +30,23 @@ public final class ConfigProperties {
   }
 
   // Birthday property here
+  public static class BirthdayProperty extends AbstractConfigProperty<LocalDate, String> {
+
+    @Override
+    public String getKey() {
+      return "contacts.edu.birthday";
+    }
+
+    @Override
+    public String description() {
+      return "birthday property";
+    }
+
+    @Override
+    protected LocalDate parse(String value) {
+      return LocalDate.parse(value, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    }
+
+  }
 
 }

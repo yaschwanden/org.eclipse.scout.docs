@@ -31,7 +31,8 @@ public class ConfigurationTest {
 
   /**
    * TODO 1.13 Platform Configuration: Create the inner class BirthdayProperty in {@link ConfigProperties}. This
-   * property parses a {@link LocalDate} out of the existing config property. <br>
+   * property parses a {@link LocalDate} out of the existing config property. Use contacts.edu.birthday as property
+   * name.<br>
    * Hint: use {@link LocalDate#parse(CharSequence, DateTimeFormatter)} and {@link DateTimeFormatter#ofPattern(String)}
    * with the pattern 'dd.MM.yyyy'.
    */

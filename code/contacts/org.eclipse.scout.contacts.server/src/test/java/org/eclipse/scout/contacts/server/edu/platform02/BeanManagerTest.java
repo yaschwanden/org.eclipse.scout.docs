@@ -22,7 +22,6 @@ import org.eclipse.scout.contacts.server.edu.platform02.fixture.IFurniture;
 import org.eclipse.scout.contacts.server.edu.platform02.fixture.IKitchenFurniture;
 import org.eclipse.scout.contacts.server.edu.platform02.fixture.INonExistingBean;
 import org.eclipse.scout.contacts.server.edu.platform02.fixture.KitchenTable;
-import org.eclipse.scout.contacts.server.edu.util.TODO;
 import org.eclipse.scout.rt.platform.ApplicationScoped;
 import org.eclipse.scout.rt.platform.BEANS;
 import org.eclipse.scout.rt.platform.Bean;
@@ -72,7 +71,7 @@ public class BeanManagerTest {
   @Test
   public void lookupByInterface() {
     IKitchenFurniture bean = BEANS.get(IKitchenFurniture.class);
-    Assert.assertEquals(bean.getClass(), TODO.class);
+    Assert.assertEquals(bean.getClass(), KitchenTable.class);
   }
 
   /**
@@ -83,7 +82,7 @@ public class BeanManagerTest {
    */
   @Test
   public void multipleInstancesByClass() {
-    IFurniture bean = BEANS.get(IFurniture.class);
+    IFurniture bean = BEANS.get(Chair.class);
     assertThat(bean, instanceOf(Chair.class));
   }
 
@@ -93,7 +92,7 @@ public class BeanManagerTest {
    * <p>
    * TODO 1.06 Platform: fix the test below, by providing the correct expected exception.
    */
-  @Test(expected = NullPointerException.class)
+  @Test(expected = AssertionException.class)
   public void multipleInstancesByInterface() {
     BEANS.get(IFurniture.class);
   }
@@ -107,6 +106,6 @@ public class BeanManagerTest {
    */
   @Test
   public void optionalGet() {
-    assertThat(BEANS.get(INonExistingBean.class), nullValue());
+    assertThat(BEANS.opt(INonExistingBean.class), nullValue());
   }
 }
