@@ -70,7 +70,7 @@ public final class EduUtility {
         jobName = IFuture.CURRENT.get().getJobInput().getName();
       }
 
-      String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
+      String now = new SimpleDateFormat("HH:mm:ss,SSS").format(new Date());
 
       System.out.printf("[%s] %s [subject=%s, jobname=%s]",
           now, label, Subject.getSubject(AccessController.getContext()), jobName)

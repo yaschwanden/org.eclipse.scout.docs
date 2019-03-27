@@ -52,7 +52,7 @@ public class ClientNotificationTest {
     List<TestNotification> receivedNotifications = consumeFeature.awaitDoneAndGet(2, TimeUnit.SECONDS);
 
     // assertions
-    assertThat(receivedNotifications, hasSize(2));
+    assertThat(receivedNotifications, hasSize(-1));
     Assert.assertEquals(receivedNotifications, Arrays.asList());
 
     // appendix

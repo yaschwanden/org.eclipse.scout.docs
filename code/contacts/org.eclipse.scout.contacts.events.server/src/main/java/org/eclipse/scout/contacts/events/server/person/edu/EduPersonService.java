@@ -13,12 +13,15 @@ package org.eclipse.scout.contacts.events.server.person.edu;
 import org.eclipse.scout.contacts.events.server.person.PersonServiceExtension;
 import org.eclipse.scout.contacts.shared.person.PersonFormData;
 import org.eclipse.scout.rt.platform.Replace;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Person service extension that logs P.O. Box value
  */
 @Replace
 public class EduPersonService extends PersonServiceExtension {
+  private static final Logger LOG = LoggerFactory.getLogger(EduPersonService.class);
 
   @Override
   public PersonFormData store(PersonFormData formData) {
