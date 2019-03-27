@@ -53,7 +53,7 @@ public class ClientNotificationTest {
 
     // assertions
     assertThat(receivedNotifications, hasSize(2));
-    Assert.assertEquals(receivedNotifications, Arrays.asList());
+    Assert.assertEquals(receivedNotifications, Arrays.asList(m_notification01, m_notification03));
 
     // appendix
     // wait for all jobs to complete

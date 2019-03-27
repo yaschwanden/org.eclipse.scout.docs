@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -17,6 +16,7 @@ import javax.security.auth.Subject;
 
 import org.eclipse.scout.contacts.client.edu.EduUtility;
 import org.eclipse.scout.rt.platform.ApplicationScoped;
+import org.eclipse.scout.rt.platform.BEANS;
 import org.eclipse.scout.rt.platform.context.PropertyMap;
 import org.eclipse.scout.rt.platform.context.RunContext;
 import org.eclipse.scout.rt.platform.context.RunContexts;
@@ -82,20 +82,21 @@ public class RunContextExercises {
   }
 
   /**
-   * TODO 2.04 RunContext: Run the {@link Runnable} in a new transaction.
+   * TODO 2.04 RunContext: Run the {@link Runnable} in a new transaction.<br>
+   * Hint: use {@link RunContext#withTransactionScope(TransactionScope)}
    */
   @Test
   public void exercise_4() {
-    assertNull(ITransaction.CURRENT.get());
-    RunContexts.empty().run(() -> {
-      ITransaction currentTx = ITransaction.CURRENT.get();
-      assertNotNull(ITransaction.CURRENT.get());
-      IRunnable runnable = () -> assertNotSame(currentTx, ITransaction.CURRENT.get());
-
-      RunContexts.empty()
-          // add your code here
-          .run(runnable);
-    });
+    ITransaction outherTransaction = ITransaction.CURRENT.get();
+    assertNotNull(outherTransaction);
+    RunContexts.copyCurrent()
+        .withTransactionScope(TransactionScope.REQUIRES_NEW)
+        // your code here
+        .run(() -> {
+          ITransaction innerTransaction = ITransaction.CURRENT.get();
+          assertNotNull(innerTransaction);
+          assertNotSame(outherTransaction, innerTransaction);
+        });
   }
 
   /**
@@ -109,6 +110,7 @@ public class RunContextExercises {
     when(txMember.commitPhase1()).thenReturn(true);
 
     RunContexts.empty()
+        .withTransactionMember(txMember)
         // add code here
         .run(() -> {
         });
@@ -122,12 +124,13 @@ public class RunContextExercises {
   @Test
   public void exercise_6() {
     RunContexts.empty().run(() -> {
-      RunMonitor.CURRENT.get().cancel(false);
+      RunMonitor runMonitor = RunMonitor.CURRENT.get();
+      runMonitor.cancel(false);
 
-      IRunnable runnable = () -> assertTrue(RunMonitor.CURRENT.get().isCancelled());
       RunContexts.empty()
           // write code here
-          .run(runnable);
+          .withRunMonitor(runMonitor)
+          .run(() -> assertTrue(RunMonitor.CURRENT.get().isCancelled()));
     });
   }
 
@@ -141,11 +144,10 @@ public class RunContextExercises {
     RunContexts.empty().run(() -> {
       RunMonitor.CURRENT.get().cancel(false);
 
-      IRunnable runnable = () -> assertFalse(RunMonitor.CURRENT.get().isCancelled());
-
       RunContexts.copyCurrent()
+          .withRunMonitor(BEANS.get(RunMonitor.class))
           // your code here
-          .run(runnable);
+          .run(() -> assertFalse(RunMonitor.CURRENT.get().isCancelled()));
     });
   }
 }

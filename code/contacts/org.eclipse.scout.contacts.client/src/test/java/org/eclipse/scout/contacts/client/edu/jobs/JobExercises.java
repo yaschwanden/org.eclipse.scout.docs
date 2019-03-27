@@ -1,15 +1,20 @@
 package org.eclipse.scout.contacts.client.edu.jobs;
 
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import java.security.AccessController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
-import java.util.regex.Pattern;
 
 import javax.security.auth.Subject;
 
@@ -18,12 +23,15 @@ import org.eclipse.scout.contacts.client.edu.EduUtility.Logger;
 import org.eclipse.scout.rt.platform.context.RunContext;
 import org.eclipse.scout.rt.platform.context.RunContexts;
 import org.eclipse.scout.rt.platform.holders.Holder;
+import org.eclipse.scout.rt.platform.holders.IHolder;
 import org.eclipse.scout.rt.platform.job.FixedDelayScheduleBuilder;
 import org.eclipse.scout.rt.platform.job.IExecutionSemaphore;
 import org.eclipse.scout.rt.platform.job.IFuture;
+import org.eclipse.scout.rt.platform.job.JobInput;
+import org.eclipse.scout.rt.platform.job.JobState;
 import org.eclipse.scout.rt.platform.job.Jobs;
+import org.eclipse.scout.rt.platform.job.internal.JobManager;
 import org.eclipse.scout.rt.platform.nls.NlsLocale;
-import org.eclipse.scout.rt.platform.util.Assertions;
 import org.eclipse.scout.rt.platform.util.SleepUtil;
 import org.eclipse.scout.rt.platform.util.concurrent.IRunnable;
 import org.eclipse.scout.rt.testing.platform.runner.PlatformTestRunner;
@@ -80,6 +88,7 @@ public class JobExercises {
 
     IRunnable r = () -> logger.log("exercise_1");
     // your code here
+    Jobs.schedule(r, Jobs.newInput());
 
     // assertions
     waitForAllJobs();
@@ -92,12 +101,19 @@ public class JobExercises {
   @Test
   public void exercise_2() {
     Logger logger = Mockito.spy(new Logger());
-    IRunnable runnable = () -> logger.log("exercise_2");
+    final IHolder<IFuture<?>> futureHolder = new Holder<IFuture<?>>();
+    IRunnable runnable = () -> {
+      futureHolder.setValue(IFuture.CURRENT.get());
+      SleepUtil.sleepSafe(1, TimeUnit.SECONDS);
+      logger.log("exercise_2");
+    };
 
     // code here
+    Jobs.schedule(runnable, Jobs.newInput()).awaitDone();
 
     // assertions
-    Mockito.verify(logger, Mockito.times(1)).log(Mockito.anyString());
+    assertNotNull(futureHolder.getValue());
+    assertEquals(futureHolder.getValue().getState(), JobState.DONE);
   }
 
   /**
@@ -112,7 +128,9 @@ public class JobExercises {
       return "doing something";
     };
 
-    String result = null;// code here
+    // code here
+    String result = Jobs.schedule(callable, Jobs.newInput())
+        .awaitDoneAndGet();
 
     // assertions
     Mockito.verify(logger, Mockito.times(1)).log(Mockito.anyString());
@@ -122,7 +140,10 @@ public class JobExercises {
   /**
    * TODO 3.04 Jobs: Schedule 2 jobs and wait for their completion.
    * <p>
-   * Hint: Mark the jobs with an execution hint and wait for all jobs that comply with that hint.
+   * Hints:<br>
+   * - Mark the jobs with an execution hint ({@link JobInput#withExecutionHint(String)}).<br>
+   * - Wait for all jobs with that execution hint are done {@link Jobs#getJobManager()},
+   * {@link JobManager#awaitDone(java.util.function.Predicate, long, TimeUnit)}, {@link Jobs#newFutureFilterBuilder()}
    */
   @Test
   public void exercise_4() {
@@ -131,6 +152,19 @@ public class JobExercises {
     IRunnable runnable2 = () -> logger.log("exercise_4: job-2");
 
     // code here
+    Jobs.schedule(runnable1,
+        Jobs.newInput()
+            .withExecutionHint("my-family"));
+    Jobs.schedule(runnable2,
+        Jobs.newInput()
+            .withExecutionHint("my-family"));
+
+    // wait for completion
+    Jobs.getJobManager().awaitDone(
+        Jobs.newFutureFilterBuilder()
+            .andMatchExecutionHint("my-family")
+            .toFilter(),
+        10, TimeUnit.SECONDS);
 
     // assertions
     Mockito.verify(logger, Mockito.times(2)).log(Mockito.anyString());
@@ -154,6 +188,11 @@ public class JobExercises {
     };
 
     // code here
+    Jobs.schedule(runnable, Jobs.newInput()
+        .withRunContext(RunContexts.empty()
+            .withSubject(JOHN)
+            .withLocale(Locale.US)))
+        .awaitDone();
 
     // assertions
     Mockito.verify(logger, Mockito.times(1)).log(Mockito.anyString());
@@ -176,26 +215,35 @@ public class JobExercises {
     IRunnable runnable1 = () -> {
       logger.log("exercise_6: job-1");
       executionList.add(1);
-      Thread.sleep(1000);
+      SleepUtil.sleepSafe(500, TimeUnit.MILLISECONDS);
     };
     IRunnable runnable2 = () -> {
       logger.log("exercise_6: job-2");
       executionList.add(2);
-      Thread.sleep(1000);
+      SleepUtil.sleepSafe(500, TimeUnit.MILLISECONDS);
     };
 
     IRunnable runnable3 = () -> {
       logger.log("exrcise_6: job-3");
       executionList.add(3);
-      Thread.sleep(1000);
+      SleepUtil.sleepSafe(500, TimeUnit.MILLISECONDS);
     };
 
     // code here assign the futures
-    IFuture<Void> future1 = null;
+    // Schedule the first job
+    IFuture<Void> future1 = Jobs.schedule(runnable1,
+        Jobs.newInput()
+            .withExecutionSemaphore(mutex));
 
-    IFuture<Void> future2 = null;
+    // Schedule the second job
+    IFuture<Void> future2 = Jobs.schedule(runnable2,
+        Jobs.newInput()
+            .withExecutionSemaphore(mutex));
 
-    IFuture<Void> future3 = null;
+    // Schedule the third job
+    IFuture<Void> future3 = Jobs.schedule(runnable3,
+        Jobs.newInput()
+            .withExecutionSemaphore(mutex));
 
     // wait for all
     Jobs.getJobManager().awaitDone(
@@ -213,19 +261,27 @@ public class JobExercises {
    * <p>
    * Hint: Use an execution trigger (Jobs.newExecutionTrigger())<br>
    * Hint: Use {@link SimpleScheduleBuilder} as schedule (static factory methods)<br>
-   * Hint: Use {@link EduUtility#schedule(IRunnable, org.eclipse.scout.rt.platform.job.JobInput)} instead of
-   * {@link Jobs#schedule(IRunnable, org.eclipse.scout.rt.platform.job.JobInput)}
+   *
+   * @throws InterruptedException
    */
   @Test
-  public void exercise_7() {
+  public void exercise_7() throws InterruptedException {
     Logger logger = Mockito.spy(new Logger());
+    CountDownLatch waitLatch = new CountDownLatch(3);
 
     IRunnable runnable = () -> {
       logger.log("exercise_7 (sleeps 1s)");
-      Thread.sleep(1000);
+      SleepUtil.sleepSafe(1, TimeUnit.SECONDS);
     };
 
-    // code here
+    IFuture<Void> future = Jobs.schedule(runnable, Jobs.newInput()
+        // code here
+        .withExecutionTrigger(Jobs.newExecutionTrigger()
+            .withStartIn(3, TimeUnit.SECONDS) // first execution in 3s
+            .withSchedule(SimpleScheduleBuilder.repeatSecondlyForTotalCount(4, 2))));
+
+    future.whenDone((result) -> waitLatch.countDown(), RunContexts.copyCurrent());
+    waitLatch.await(15, TimeUnit.SECONDS);
 
     // assertions
     Mockito.verify(logger, Mockito.times(4)).log(Mockito.anyString());
@@ -237,20 +293,28 @@ public class JobExercises {
    * <p>
    * Hint: Use an execution trigger (Jobs.newExecutionTrigger())<br>
    * Hint: Use {@link FixedDelayScheduleBuilder} as schedule (static factory methods)<br>
-   * Hint: Use {@link EduUtility#schedule(IRunnable, org.eclipse.scout.rt.platform.job.JobInput)} instead of
-   * {@link Jobs#schedule(IRunnable, org.eclipse.scout.rt.platform.job.JobInput)}
+   *
+   * @throws InterruptedException
    */
   @Test
-  public void exercise_8() {
+  public void exercise_8() throws InterruptedException {
     Logger logger = Mockito.spy(new Logger());
+    CountDownLatch waitLatch = new CountDownLatch(5);
 
     IRunnable runnable = () -> {
       logger.log("exercise_8 (sleeps 1s)");
-      Thread.sleep(1_000);
+      SleepUtil.sleepSafe(500, TimeUnit.MILLISECONDS);
     };
 
     // code here
+    IFuture<Void> future = Jobs.schedule(runnable, Jobs.newInput()
+        // code here
+        .withExecutionTrigger(Jobs.newExecutionTrigger()
+            .withStartIn(3, TimeUnit.SECONDS) // first execution in 3s
+            .withSchedule(FixedDelayScheduleBuilder.repeatForTotalCount(5, 2, TimeUnit.SECONDS))));
 
+    future.whenDone((result) -> waitLatch.countDown(), RunContexts.copyCurrent());
+    waitLatch.await(15, TimeUnit.SECONDS);
     // assertions
     Mockito.verify(logger, Mockito.times(5)).log(Mockito.anyString());
   }
@@ -260,20 +324,28 @@ public class JobExercises {
    * <p>
    * Hint: Use an execution trigger (Jobs.newExecutionTrigger())<br>
    * Hint: Use {@link CronScheduleBuilder} as schedule (static factory methods)<br>
-   * Hint: See {@link CronExpression} to specify the CRON expression Hint: Use
-   * {@link EduUtility#schedule(IRunnable, org.eclipse.scout.rt.platform.job.JobInput)} instead of
-   * {@link Jobs#schedule(IRunnable, org.eclipse.scout.rt.platform.job.JobInput)}
+   * Hint: See {@link CronExpression} to specify the CRON expression
+   *
+   * @throws InterruptedException
    */
   @Test
-  public void exercise_9() {
+  public void exercise_9() throws InterruptedException {
     Logger logger = Mockito.spy(new Logger());
+    CountDownLatch waitLatch = new CountDownLatch(2);
 
     IRunnable runnable = () -> logger.log("exercise_9");
 
-    // code here
+    IFuture<Void> future = Jobs.schedule(runnable, Jobs.newInput()
+        // code here
+        .withExecutionTrigger(Jobs.newExecutionTrigger()
+            .withSchedule(CronScheduleBuilder.cronSchedule("0/10 * * ? * MON-FRI"))));
 
+    future.whenDone((result) -> waitLatch.countDown(), RunContexts.copyCurrent());
+
+    waitLatch.await(20, TimeUnit.SECONDS);
+    future.cancel(true);
     // assertions
-    Mockito.verify(logger, Mockito.atLeast(3)).log(Mockito.anyString());
+    Mockito.verify(logger, Mockito.atLeast(2)).log(Mockito.anyString());
   }
 
   /**
@@ -282,43 +354,47 @@ public class JobExercises {
    * Hint: Use an execution trigger (Jobs.newExecutionTrigger())<br>
    * Hint: Use {@link CronScheduleBuilder} as schedule (static factory methods)<br>
    * Hint: See {@link CronExpression} to specify the CRON expression<br>
-   * Hint: Use {@link EduUtility#schedule(IRunnable, org.eclipse.scout.rt.platform.job.JobInput)} instead of
-   * {@link Jobs#schedule(IRunnable, org.eclipse.scout.rt.platform.job.JobInput)}
    */
   @Test
   public void exercise_10() {
     Logger logger = Mockito.spy(new Logger());
 
     IRunnable runnable = () -> logger.log("exercise_10");
+    IFuture<Void> future = Jobs.schedule(runnable,
+        Jobs.newInput()
+            // your code here
+            .withExecutionTrigger(Jobs.newExecutionTrigger()
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 15 10 ? * MON-FRI"))));
 
-    // code here
+    assertFalse(future.isSingleExecution());
+    assertThat(future.getState(), is(JobState.PENDING));
+    aboardAllJobs();
   }
 
   /**
-   * TODO 3.11 Jobs: Limit the maximal concurrency level to 5 concurrently executing jobs.
+   * TODO 3.11 Jobs: Limit the maximal concurrency level to 5 concurrently executing jobs.<br>
+   * Hint: See {@link Jobs#newExecutionSemaphore(int)}
    */
   @Test
   public void exercise_11() {
     Logger logger = Mockito.spy(new Logger());
+    final IExecutionSemaphore semaphore = Jobs.newExecutionSemaphore(5);
 
-    IExecutionSemaphore semaphore = Jobs.newExecutionSemaphore(5);
-
-    IRunnable runnable = () -> {
-      logger.log("exercise_11");
-      Thread.sleep(TimeUnit.SECONDS.toMillis(5));
-    };
-
-    for (int i = 0; i < 30; i++) {
+    for (int i = 0; i < 10; i++) {
       // code here schedule the runnable with a job '.withName("ex11-{}", i)'
-
+      Jobs.schedule(() -> {
+        logger.log("Start job '" + IFuture.CURRENT.get().getJobInput().getName() + "'");
+        assertTrue(Jobs.getJobManager().getFutures(f -> f.getState() == JobState.RUNNING).size() < 6);
+        Thread.sleep(200);
+      },
+          Jobs.newInput()
+              .withName("j{}", i)
+              .withExecutionSemaphore(semaphore)
+      // code here
+      );
     }
-
     // wait for all
-    Jobs.getJobManager().awaitFinished(
-        Jobs.newFutureFilterBuilder()
-            .andMatchNameRegex(Pattern.compile("ex11\\-[0-9]*"))
-            .toFilter(),
-        2, TimeUnit.MINUTES);
+    waitForAllJobs();
   }
 
   /**
@@ -330,43 +406,57 @@ public class JobExercises {
    * Hint: Do not use synchronization nor locking<br>
    * Hint: Do not wait for futures to complete<br>
    * Hint: Use 'whenDoneSchedule' to update the model upon loading model data.<br>
-   * Hint: Use an execution semaphore to achieve mutual exclusion.
+   * Hint: Use an execution semaphore ({@link Jobs#newExecutionSemaphore(int)}) to achieve mutual exclusion.
    */
   @Test
   public void exercise_12() {
+    Logger logger = Mockito.spy(new Logger());
     final IExecutionSemaphore modelMutex = Jobs.newExecutionSemaphore(1);
 
-    for (int i = 0; i < 10; i++) {
-      Callable<String> dataLoader = newModelDataLoader();
-      BiConsumer<String, Throwable> updater = (String result, Throwable t) -> updateModel(result);
-    }
-  }
-
-  private Callable<String> newModelDataLoader() {
-    return new Callable<String>() {
-
-      @Override
-      public String call() throws Exception {
-        Thread.sleep(5_000);
-        return UUID.randomUUID().toString();
-      }
+    Callable<String> dataLoader = () -> {
+      logger.log(IFuture.CURRENT.get().getJobInput().getName() + ": loadData");
+      // this might take time
+      SleepUtil.sleepSafe(1, TimeUnit.SECONDS);
+      return "";
     };
-  }
 
-  private AtomicInteger m_modelAccessCount = new AtomicInteger();
+    BiConsumer<String, Throwable> modelUpdater = (String result, Throwable t) -> {
+      logger.log(IFuture.CURRENT.get().getJobInput().getName() + ": updateModel");
+      SleepUtil.sleepSafe(500, TimeUnit.MILLISECONDS);
+      assertTrue(Jobs.getJobManager().getFutures(
+          Jobs.newFutureFilterBuilder().andMatchExecutionHint("model")
+              .andMatchState(JobState.RUNNING)
+              .toFilter())
+          .size() == 1);
 
-  private void updateModel(String result) {
-    Assertions.assertEquals(m_modelAccessCount.incrementAndGet(), 1, "concurrent invocation");
-    try {
-      SleepUtil.sleepSafe(3, TimeUnit.SECONDS);
-      System.out.println("updating model: " + result);
+    };
+
+    for (int i = 0; i < 10; i++) {
+      Jobs.schedule(dataLoader, Jobs.newInput()
+          .withName("loader {}" + i)
+          .withExecutionHint("data"))
+          .whenDoneSchedule(modelUpdater, Jobs.newInput()
+              .withExecutionHint("model")
+              .withName("modelUpdater {}", i)
+              .withExecutionSemaphore(modelMutex)
+          // code here
+          );
     }
-    finally {
-      m_modelAccessCount.decrementAndGet();
-    }
+    waitForAllJobs(20, TimeUnit.SECONDS);
   }
 
   private void waitForAllJobs() {
-    Jobs.getJobManager().getFutures(f -> true).forEach(f -> f.awaitDone());
+    waitForAllJobs(10, TimeUnit.SECONDS);
+  }
+
+  private void waitForAllJobs(long timeout, TimeUnit timeUnit) {
+    Jobs.getJobManager().awaitFinished(
+        Jobs.newFutureFilterBuilder()
+            .toFilter(),
+        timeout, timeUnit);
+  }
+
+  private void aboardAllJobs() {
+    Jobs.getJobManager().getFutures(f -> true).forEach(f -> f.cancel(true));
   }
 }

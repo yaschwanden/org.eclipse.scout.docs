@@ -10,6 +10,7 @@
  ******************************************************************************/
 package org.eclipse.scout.contacts.events.client.person.edu;
 
+import org.eclipse.scout.contacts.client.person.PersonForm;
 import org.eclipse.scout.rt.platform.BEANS;
 import org.eclipse.scout.rt.platform.IPlatform.State;
 import org.eclipse.scout.rt.platform.IPlatformListener;
@@ -31,9 +32,9 @@ public class EduPersonClientDomain implements IPlatformListener {
 
   protected void initializeExtensions(IExtensionRegistry registry) {
     // model extensions
-    // TODO 5.01 Extensibility: register form extension
+    registry.register(EduPersonFormExtension.class);
 
     // move field
-    // TODO 5.02 Extensibility: register move
+    registry.registerMove(PersonForm.MainBox.GeneralBox.FirstNameField.class, 45);
   }
 }

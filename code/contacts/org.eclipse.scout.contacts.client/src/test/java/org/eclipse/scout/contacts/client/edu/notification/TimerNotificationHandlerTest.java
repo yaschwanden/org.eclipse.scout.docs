@@ -42,6 +42,7 @@ public class TimerNotificationHandlerTest {
     TimerNotificationHandler h = new TimerNotificationHandler();
 
     // FIX here: publish the notification
+    h.handleNotification(timeNotification);
 
     ModelJobs.yield();
     TimerNotificationForm form = BEANS.get(TimerNotificationHelper.class).findTimerForm();

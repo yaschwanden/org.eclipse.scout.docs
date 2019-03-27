@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 
 import org.eclipse.scout.contacts.shared.edu.notification.TimeNotification;
 import org.eclipse.scout.rt.platform.ApplicationScoped;
+import org.eclipse.scout.rt.platform.BEANS;
 import org.eclipse.scout.rt.platform.CreateImmediately;
 import org.eclipse.scout.rt.platform.job.Jobs;
 import org.eclipse.scout.rt.server.clientnotification.ClientNotificationRegistry;
@@ -35,7 +36,7 @@ public class TimerNotificationSender {
    * Hint: use the {@link ClientNotificationRegistry} bean.
    */
   private void sendDateToAllSessions() {
-
+    BEANS.get(ClientNotificationRegistry.class).putForAllSessions(new TimeNotification());
   }
 
 }
