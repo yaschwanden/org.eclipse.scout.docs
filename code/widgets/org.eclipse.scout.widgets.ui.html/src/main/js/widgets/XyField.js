@@ -1,7 +1,7 @@
 widgets.XyField = function() {
   widgets.XyField.parent.call(this);
 };
-scout.inherits(widgets.XyField, scout.ValueField);
+scout.inherits(widgets.XyField, scout.FormField);
 
 widgets.XyField.prototype._render = function() {
   this.addContainer(this.$parent, 'xy-field');
