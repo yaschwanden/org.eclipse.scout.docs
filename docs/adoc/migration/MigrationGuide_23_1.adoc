@@ -251,3 +251,7 @@ TableFilter.js has been removed because it is has no benefit.
 
 With TypeScript, the interface `Filter<TableRow>` should be used instead.
 With JavaScript, `extends from TableFilter` can be removed.
+
+== karma-jasmine-scout (Scout JS)
+
+The function `stripCommentsFromJson` has been removed because it is not in use anymore.
