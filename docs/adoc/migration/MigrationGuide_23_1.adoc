@@ -232,14 +232,14 @@ The `widget` property on `WidgetPopup` classes (and all its subclasses) has been
 
 The following functions have been removed because they are not in use anymore.
 
-. removeThis
-. suppressEventIfDisabled
-. colorOpacity
-. animateSVG
-. copyCssIfGreater
-. backupSelection
-. restoreSelection
-. onSingleOrDoubleClick
+- removeThis
+- suppressEventIfDisabled
+- colorOpacity
+- animateSVG
+- copyCssIfGreater
+- backupSelection
+- restoreSelection
+- onSingleOrDoubleClick
 
 The following functions have been renamed
 
@@ -254,4 +254,12 @@ With JavaScript, `extends from TableFilter` can be removed.
 
 == karma-jasmine-scout (Scout JS)
 
-The function `stripCommentsFromJson` has been removed because it is not in use anymore.
+The following functions have been removed because they are not in use anymore.
+
+- stripCommentsFromJson
+- definedProperty
+- sameProperty
+
+The following functions have been renamed.
+
+- widgetCloneProperty
