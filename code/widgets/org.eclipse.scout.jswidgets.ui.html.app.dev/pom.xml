@@ -45,6 +45,12 @@
       <artifactId>jetty-alpn-java-server</artifactId>
     </dependency>
 
+    <!-- Activates Servlet 3 container which enables async responses-->
+    <dependency>
+      <groupId>org.glassfish.jersey.containers</groupId>
+      <artifactId>jersey-container-servlet</artifactId>
+    </dependency>
+
     <!-- Logging -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
