@@ -7,17 +7,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-import {ajax, AjaxError, App, Button, DoEntity, Event, Form, FormModel, InitModelOf, models, numbers, UiNotificationHandler, uiNotifications} from '@eclipse-scout/core';
+import {ajax, AjaxError, App, Button, Event, Form, FormModel, InitModelOf, models, numbers} from '@eclipse-scout/core';
 import RestFormModel from './RestFormModel';
 import {RestFormWidgetMap} from '../index';
 
 export class RestForm extends Form {
   declare widgetMap: RestFormWidgetMap;
-  protected _notificationHandler: UiNotificationHandler;
 
   constructor() {
     super();
-    this._notificationHandler = this._onNotification.bind(this);
   }
 
   protected override _jsonModel(): FormModel {
@@ -37,9 +35,6 @@ export class RestForm extends Form {
     deleteButton.on('click', this._onDeleteButtonClick.bind(this));
     let failButton = this.widget('FailButton');
     failButton.on('click', this._onFailButtonClick.bind(this));
-
-    this.widget('SubscribeButton').on('click', this._onSubscribeButtonClick.bind(this));
-    this.widget('UnsubscribeButton').on('click', this._onUnsubscribeButtonClick.bind(this));
   }
 
   protected _addLogEntry(message: string) {
@@ -92,18 +87,6 @@ export class RestForm extends Form {
   protected _onFail(ajaxError: AjaxError) {
     App.get().errorHandler.handle(ajaxError);
     this._addLogEntry('Request failed! HTTP-Status: ' + ajaxError.jqXHR.status + '. TextStatus: ' + ajaxError.textStatus + '. ErrorThrown: ' + ajaxError.errorThrown + '. RequestOptions: ' + JSON.stringify(ajaxError.requestOptions));
-  }
-
-  protected _onSubscribeButtonClick(event: Event) {
-    uiNotifications.subscribe(this.widget('TopicField').value, this._notificationHandler);
-  }
-
-  protected _onUnsubscribeButtonClick(event: Event) {
-    uiNotifications.unsubscribe(this.widget('TopicField').value, this._notificationHandler);
-  }
-
-  protected _onNotification(message: DoEntity) {
-    this._addLogEntry(`Notification received: ${JSON.stringify(message)}`);
   }
 }
 

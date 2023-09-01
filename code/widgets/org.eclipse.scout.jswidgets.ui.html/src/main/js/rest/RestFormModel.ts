@@ -91,30 +91,6 @@ export default (): FormModel => ({
             ]
           },
           {
-            objectType: GroupBox,
-            label: 'UI Notifications',
-            gridColumnCount: 3,
-            fields: [{
-              id: 'TopicField',
-              objectType: StringField,
-              label: 'Topic'
-            }, {
-              id: 'SubscribeButton',
-              objectType: Button,
-              label: 'Subscribe',
-              processButton: false,
-              gridDataHints: {
-                useUiWidth: true,
-                weightX: 0
-              }
-            }, {
-              id: 'UnsubscribeButton',
-              objectType: Button,
-              label: 'Unsubscribe',
-              processButton: false
-            }]
-          },
-          {
             id: 'LogField',
             objectType: StringField,
             label: 'Log',
@@ -147,8 +123,5 @@ export type RestFormWidgetMap = {
   'ErrorBox': GroupBox;
   'ExceptionTypeField': SmartField<any>;
   'FailButton': Button;
-  'TopicField': StringField;
-  'SubscribeButton': Button;
-  'UnsubscribeButton': Button;
   'LogField': StringField;
 };
