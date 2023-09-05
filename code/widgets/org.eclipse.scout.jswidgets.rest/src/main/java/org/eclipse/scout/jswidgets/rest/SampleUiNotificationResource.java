@@ -16,7 +16,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
 import org.eclipse.scout.rt.platform.Replace;
-import org.eclipse.scout.rt.uinotification.UiNotificationResource;
+import org.eclipse.scout.rt.api.uinotification.UiNotificationResource;
 
 @Replace
 public class SampleUiNotificationResource extends UiNotificationResource {

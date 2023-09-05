@@ -41,10 +41,18 @@ export class UiNotificationForm extends Form {
     messageField.setValue(this._createSampleMessage());
 
     this.widget('SubscribeButton').on('click', () => {
-      uiNotifications.subscribe(this.widget('TopicField').value, this._notificationHandler);
+      try {
+        uiNotifications.subscribe(this.widget('TopicField').value, this._notificationHandler);
+      } catch(e) {
+        this._addLogEntry('Subscribe failed: ' + e.message);
+      }
     });
     this.widget('UnsubscribeButton').on('click', () => {
-      uiNotifications.unsubscribe(this.widget('TopicField').value, this._notificationHandler);
+      try {
+        uiNotifications.unsubscribe(this.widget('TopicField').value, this._notificationHandler);
+      } catch(e) {
+        this._addLogEntry('Unsubscribe failed: ' + e.message);
+      }
     });
     this.widget('SampleMenu').on('action', () => {
       messageField.setValue(this._createSampleMessage());
@@ -61,6 +69,10 @@ export class UiNotificationForm extends Form {
       }).catch((error: AjaxError) => {
         this._addLogEntry('Publish failed: ' + error.errorDo?.message);
       });
+    });
+
+    this.widget('ClearLogButton').on('click', () => {
+      this.widget('LogField').setValue('Log cleared');
     });
   }
 

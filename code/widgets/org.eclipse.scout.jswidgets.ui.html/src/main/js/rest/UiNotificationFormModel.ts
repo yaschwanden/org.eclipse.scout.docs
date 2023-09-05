@@ -97,6 +97,12 @@ export default (): FormModel => ({
               w: 2,
               h: 3
             }
+          }, {
+            id: 'ClearLogButton',
+            objectType: Button,
+            label: 'Clear log',
+            displayStyle: Button.DisplayStyle.LINK,
+            processButton: false
           }
         ]
       }
@@ -119,4 +125,5 @@ export type UiNotificationFormWidgetMap = {
   'SampleMenu': Menu;
   'PublishButton': Button;
   'LogField': StringField;
+  'ClearLogButton': Button;
 };
